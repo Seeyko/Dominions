@@ -97,6 +97,7 @@ public class Player {
 	 * souhaite diminuer le nombre d'actions)
 	 */
 	public void incrementActions(int n) {
+		this.actions+=n;
 	}
 	
 	/**
@@ -106,6 +107,7 @@ public class Player {
 	 * souhaite diminuer le nombre de pièces)
 	 */
 	public void incrementMoney(int n) {
+		this.money+=n;
 	}
 	
 	/**
@@ -115,6 +117,7 @@ public class Player {
 	 * souhaite diminuer le nombre d'achats)
 	 */
 	public void incrementBuys(int n) {
+		this.buys+=n;
 	}
 
 	/**

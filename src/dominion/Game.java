@@ -1,5 +1,6 @@
 package dominion;
 import java.util.*;
+
 import dominion.card.*;
 import dominion.card.common.*;
 
@@ -87,7 +88,15 @@ public class Game {
 	 * premier).
 	 */
 	public List<Player> otherPlayers(Player p) {
-		return null;
+		List<Player> list_otherPlayers = new ArrayList<Player>();
+		
+		for(int i = this.indexOfPlayer(p) + 1; i < this.numberOfPlayers(); i++){
+			list_otherPlayers.add(this.players[i]);
+		}
+		for(int i = 0; i < this.indexOfPlayer(p); i++){
+			list_otherPlayers.add(this.players[i]);
+		}
+		return list_otherPlayers;
 	}
 	
 	/**
