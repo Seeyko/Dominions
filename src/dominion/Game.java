@@ -145,6 +145,18 @@ public class Game {
 	 * ne correspond
 	 */
 	public Card getFromSupply(String cardName) {
+		Card cardFound = null;
+		
+		/**
+		 * Recherche dans la reserve si il y a une CardList qui contient la carte @cardName
+		 */
+		for(int i = 0; i < this.supplyStacks.size() && cardFound == null; i++){
+			
+			if((cardFound = this.supplyStacks.get(i).getCard(cardName)) != null){
+				return cardFound;
+			}
+			
+		}		
 		return null;
 	}
 	
@@ -156,14 +168,26 @@ public class Game {
 	 * ne correspond au nom passé en argument
 	 */
 	public Card removeFromSupply(String cardName) {
-		return null;
+		Card cardFound = getFromSupply(cardName);
+		if(cardFound == null){
+			return cardFound;
+		}else {
+			/**
+			 * Retire la card @cardName si elle existe dans le supplystack
+			 */
+			for(int i = 0; i < this.supplyStacks.size() && cardFound == null; i++){
+				this.supplyStacks.get(i).remove(cardName);
+			}
+		}
+		
+		return cardFound;
 	}
 	
 	/**
 	 * Teste si la partie est terminée
 	 * 
 	 * @return un booléen indiquant si la partie est terminée, c'est-à-dire si
-	 * au moins l'unedes deux conditions de fin suivantes est vraie
+	 * au moins l'une des deux conditions de fin suivantes est vraie
 	 *  - 3 piles ou plus de la réserve sont vides
 	 *  - la pile de Provinces de la réserve est vide
 	 * (on suppose que toute partie contient une pile de Provinces, et donc si 
@@ -171,6 +195,20 @@ public class Game {
 	 * c'est que la partie est terminée)
 	 */
 	public boolean isFinished() {
+		int compteurDeSupplyVide = 0;
+	
+		if(this.getFromSupply("Province") == null){
+			return true;
+		} 
+		
+		for(int i = 0; i < this.supplyStacks.size(); i++){
+			if(this.supplyStacks.get(i).isEmpty()){
+				compteurDeSupplyVide++;
+			}
+			if(compteurDeSupplyVide == 3){
+				return true;
+			}		
+		}
 		return false;
 	}
 	

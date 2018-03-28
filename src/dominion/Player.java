@@ -1,5 +1,6 @@
 package dominion;
 import java.util.*;
+
 import dominion.card.*;
 
 /**
@@ -65,6 +66,7 @@ public class Player {
 	 * préparer la main du joueur après avoir placé les cartes dans la défausse.
 	 */
 	public Player(String name, Game game) {
+		
 	}
 
 	/**
@@ -201,22 +203,44 @@ public class Player {
 	 * Renvoie la liste de toutes les cartes Trésor dans la main du joueur
 	 */
 	public CardList getTreasureCards() {
-		return discard;
+		CardList TreasureInHand = new CardList();
+		
+		for(Card t : this.hand){
+			if(t instanceof TreasureCard){
+				TreasureInHand.add(t);
+			}
+		}
+		return TreasureInHand;
 	}
 	
 	/**
 	 * Renvoie la liste de toutes les cartes Action dans la main du joueur
 	 */
 	public CardList getActionCards() {
-		return discard;
+		CardList ActionInHand = new CardList();
+		
+		for(Card t : this.hand){
+			if(t instanceof TreasureCard){
+				ActionInHand.add(t);
+			}
+		}
+		return ActionInHand;
 	}
 	
 	/**
 	 * Renvoie la liste de toutes les cartes Victoire dans la main du joueur
 	 */
 	public CardList getVictoryCards() {
-		return discard;
+		CardList VictoryInHand = new CardList();
+		
+		for(Card t : this.hand){
+			if(t instanceof TreasureCard){
+				VictoryInHand.add(t);
+			}
+		}
+		return VictoryInHand;
 	}
+
 	
 	/**
 	 * Joue une carte de la main du joueur.
@@ -229,6 +253,9 @@ public class Player {
 	 * {@code inPlay} et exécute la méthode {@code play(Player p)} de la carte.
 	 */
 	public void playCard(Card c) {
+		this.hand.remove(c.getName());
+		this.inPlay.add(c);
+		c.play(this);
 	}
 	
 	/**
@@ -242,6 +269,11 @@ public class Player {
 	 * fait rien.
 	 */
 	public void playCard(String cardName) {
+		Card c = null;
+		
+		if((c = this.hand.getCard(cardName)) != null){
+			this.playCard(c);
+		}
 	}
 	
 	/**
@@ -254,6 +286,9 @@ public class Player {
 	 * emplacement précédent au préalable.
 	 */
 	public void gain(Card c) {
+		if(c != null){
+			this.discard.add(c);
+		}
 	}
 	
 	/**
