@@ -2,6 +2,8 @@ package dominion;
 import java.util.*;
 
 import dominion.card.*;
+import dominion.card.common.Copper;
+import dominion.card.common.Estate;
 
 /**
  * Un joueur de Dominion
@@ -66,7 +68,15 @@ public class Player {
 	 * préparer la main du joueur après avoir placé les cartes dans la défausse.
 	 */
 	public Player(String name, Game game) {
-		
+		this.name = name;
+		this.game = game;
+		for(int i = 0; i < 7; i++){
+			if(i < 3){
+				this.discard.add(new Estate());
+			}
+			this.discard.add(new Copper());
+		}
+		this.endTurn();
 	}
 
 	/**

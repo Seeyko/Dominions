@@ -6,6 +6,7 @@ import java.util.*;
  */
 public class CardList extends ArrayList<Card> {
 	
+
 	/**
 	 * Constructeur vide
 	 */

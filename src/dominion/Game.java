@@ -1,17 +1,12 @@
 package dominion;
-import java.io.DataInputStream;
-import java.io.InputStream;
-import java.lang.reflect.InvocationTargetException;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
 import dominion.card.Card;
 import dominion.card.CardList;
-import dominion.card.base.Adventurer;
-import dominion.card.base.Village;
-import extension.Carte_Commune;
+import dominion.card.CommunCardList;
+
 
 /**
  * Class représentant une partie de Dominion
@@ -58,16 +53,27 @@ public class Game {
 	 */
 	public Game(String[] playerNames, List<CardList> kingdomStacks) {
 
+
 		this.supplyStacks = kingdomStacks;
 
 		CardList allExtension = new CardList();
 		//R�cup�re toute les extentions auxquels vous souhaitez jouer
 		
 		
+		//Defini combien d'extension vous avez implémenté.
+		int nbType_de_partie = 1;
+		List<Class<?>> classes = ClassFinder.find("dominion.card");
+		System.out.println("\nQuelles types de partie voulez vous faire :");
+		for(int i = 0; i< classes.size(); i++){
+			//Affichez les différentes extensions
+			System.out.println(i +" "+ classes.get(i).getSimpleName());
+		}
 		this.players = new Player[playerNames.length];
 		for(int i = 0; i < playerNames.length; i++){
 			this.players[i] = new Player(playerNames[i], this);
 		}
+		this.supplyStacks = kingdomStacks;
+		this.supplyStacks.add(new CommunCardList(playerNames.length));
 	}
 	
 	/**
@@ -258,6 +264,7 @@ public class Game {
 		}
 	}
 
+
 	/*
 	 * Permet de choisir les extensions du jeu.
 	 */
@@ -293,7 +300,5 @@ public class Game {
 		
 		return chosenCard;
 	}
-
-
 	
 }
