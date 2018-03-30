@@ -1,8 +1,13 @@
 package dominion;
-import java.util.*;
+import java.io.DataInputStream;
+import java.io.InputStream;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 
-import dominion.card.*;
-import dominion.card.common.*;
+import dominion.card.Card;
+import dominion.card.CardList;
+import dominion.card.CommunCardList;
 
 /**
  * Class représentant une partie de Dominion
@@ -47,6 +52,20 @@ public class Game {
 	 * - 8 (si 2 joueurs) ou 12 (si 3 ou 4 joueurs) Estate, Duchy et Province 	 * - 10 * (n-1) Curse où n est le nombre de joueurs dans la partie
 	 */
 	public Game(String[] playerNames, List<CardList> kingdomStacks) {
+		//Defini combien d'extension vous avez implémenté.
+		int nbType_de_partie = 1;
+		List<Class<?>> classes = ClassFinder.find("dominion.card");
+		System.out.println("\nQuelles types de partie voulez vous faire :");
+		for(int i = 0; i< classes.size(); i++){
+			//Affichez les différentes extensions
+			System.out.println(i +" "+ classes.get(i).getSimpleName());
+		}
+		this.players = new Player[playerNames.length];
+		for(int i = 0; i < playerNames.length; i++){
+			this.players[i] = new Player(playerNames[i], this);
+		}
+		this.supplyStacks = kingdomStacks;
+		this.supplyStacks.add(new CommunCardList(playerNames.length));
 	}
 	
 	/**
@@ -236,4 +255,5 @@ public class Game {
 			System.out.println(String.format("%s: %d Points.\n%s\n", p.getName(), p.victoryPoints(), p.totalCards().toString()));
 		}
 	}
+	
 }
