@@ -16,7 +16,7 @@ public class Village extends ActionCard {
 		super(name, cost);
 		// TODO Auto-generated constructor stub
 	}
-
+	
 	@Override
 	public void play(Player p) {
 		// TODO Auto-generated method stub

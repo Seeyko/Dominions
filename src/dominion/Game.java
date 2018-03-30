@@ -1,8 +1,17 @@
 package dominion;
-import java.util.*;
+import java.io.DataInputStream;
+import java.io.InputStream;
+import java.lang.reflect.InvocationTargetException;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
 
-import dominion.card.*;
-import dominion.card.common.*;
+import dominion.card.Card;
+import dominion.card.CardList;
+import dominion.card.base.Adventurer;
+import dominion.card.base.Village;
+import extension.Carte_Commune;
 
 /**
  * Class représentant une partie de Dominion
@@ -45,8 +54,20 @@ public class Game {
 	 * - 40 Silver
 	 * - 30 Gold
 	 * - 8 (si 2 joueurs) ou 12 (si 3 ou 4 joueurs) Estate, Duchy et Province 	 * - 10 * (n-1) Curse où n est le nombre de joueurs dans la partie
+	 *  
 	 */
 	public Game(String[] playerNames, List<CardList> kingdomStacks) {
+
+		this.supplyStacks = kingdomStacks;
+
+		CardList allExtension = new CardList();
+		//R�cup�re toute les extentions auxquels vous souhaitez jouer
+		
+		
+		this.players = new Player[playerNames.length];
+		for(int i = 0; i < playerNames.length; i++){
+			this.players[i] = new Player(playerNames[i], this);
+		}
 	}
 	
 	/**
@@ -57,14 +78,14 @@ public class Game {
 	 * @param index indice dans le tableau des joueurs du joueur à renvoyer
 	 */
 	public Player getPlayer(int index) {
-		return null;
+		return this.players[index];
 	}
 	
 	/**
 	 * Renvoie le nombre de joueurs participant à la partie
 	 */
 	public int numberOfPlayers() {
-		return currentPlayerIndex;
+		return this.currentPlayerIndex;
 	}
 	
 	/**
@@ -72,7 +93,7 @@ public class Game {
 	 * joueurs, ou -1 si le joueur n'est pas dans le tableau.
 	 */
 	private int indexOfPlayer(Player p) {
-		return currentPlayerIndex;
+		return this.currentPlayerIndex;
 	}
 	
 	/**
@@ -107,7 +128,7 @@ public class Game {
 	 * non-vide de la réserve (cartes royaume et cartes communes)
 	 */
 	public CardList availableSupplyCards() {
-		return trashedCards;
+		return this.trashedCards;
 	}
 	
 	/**
@@ -150,7 +171,7 @@ public class Game {
 		/**
 		 * Recherche dans la reserve si il y a une CardList qui contient la carte @cardName
 		 */
-		for(int i = 0; i < this.supplyStacks.size() && cardFound == null; i++){
+		for(int i = 0; i < this.supplyStacks.size() -1 && cardFound == null; i++){
 			
 			if((cardFound = this.supplyStacks.get(i).getCard(cardName)) != null){
 				return cardFound;
@@ -236,4 +257,43 @@ public class Game {
 			System.out.println(String.format("%s: %d Points.\n%s\n", p.getName(), p.victoryPoints(), p.totalCards().toString()));
 		}
 	}
+
+	/*
+	 * Permet de choisir les extensions du jeu.
+	 */
+	private CardList chooseGameType(int nbPlayer) {
+		List<Class> nbType_de_partie = new ArrayList<>();
+		//Tentative de recuper les classes qui sont dans le packages "extension";
+	
+			nbType_de_partie = Game.getClasses(Game.class.getClassLoader(), Game.class.getPackage().getName() + ".extension");
+			//Si il y a une erreure, r�cupere seulement la classe commune.
+		
+		
+		System.out.println("\nQuelles types de partie voulez vous faire :");
+		System.out.println("-1 Pour valider vos choix.");		
+
+		for(int i = 0; i < nbType_de_partie.size() ; i++){
+			//Affichez les différentes extensions
+			System.out.println(i + ": " + nbType_de_partie.get(i).getSimpleName());
+		}
+		int TypeOfGame = -2;
+		CardList chosenCard = new CardList();
+
+		Scanner sc = new Scanner(System.in);
+		try {
+			TypeOfGame = sc.nextInt();
+		} catch (Exception e ) {
+			System.out.println("! Ce choix n'est pas valide !");
+			return chosenCard;
+		}
+		
+				chosenCard =  (CardList) nbType_de_partie.get(TypeOfGame).getDeclaredConstructor(int.class).newInstance(2);
+				System.out.println("On prend le deck " + TypeOfGame);
+
+		
+		return chosenCard;
+	}
+
+
+	
 }

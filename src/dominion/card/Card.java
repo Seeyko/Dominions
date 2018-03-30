@@ -22,6 +22,8 @@ public abstract class Card {
 	 * @param cost le coût de la carte
 	 */
 	public Card(String name, int cost) {
+		this.name = name;
+		this.cost = cost;
 	}
 	
 	/**
@@ -51,7 +53,7 @@ public abstract class Card {
 	 * (ici la fonction renvoie le nom de la carte)
 	 */
 	public String toString() {
-		return name;
+		return this.name;
 	}
 	
 	/**
