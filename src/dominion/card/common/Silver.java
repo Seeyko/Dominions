@@ -8,15 +8,14 @@ import dominion.card.*;
  * 2 Pièces
  */
 public class Silver extends TreasureCard {
-	public Silver() { super("Silver", 3);	}
+	public Silver() { super("Silver",2);	}
 	
 	public int treasureValue() {
-		return 2;
+		return 0;
 	}
 
 	@Override
 	public void play(Player p) {
-		// TODO Auto-generated method stub
-		
+		p.incrementMoney(2);		
 	}
 }

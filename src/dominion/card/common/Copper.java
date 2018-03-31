@@ -8,15 +8,14 @@ import dominion.card.*;
  * 1 Pièce
  */
 public class Copper extends TreasureCard {
-	public Copper() { super("Copper", 0);	}
+	public Copper() { super("Copper", 1);	}
 	
 	public int treasureValue() {
-		return 1;
+		return 0;
 	}
 
 	@Override
 	public void play(Player p) {
-		// TODO Auto-generated method stub
-		
+		p.incrementMoney(1);
 	}
 }

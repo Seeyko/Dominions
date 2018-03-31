@@ -1,4 +1,4 @@
-package extension;
+package extension.pilecarte;
 
 import dominion.card.CardList;
 import dominion.card.common.Copper;

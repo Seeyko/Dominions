@@ -8,6 +8,7 @@ public class ClassFinder {
 
     private static final char PKG_SEPARATOR = '.';
 
+   
     private static final char DIR_SEPARATOR = '/';
 
     private static final String CLASS_FILE_SUFFIX = ".class";

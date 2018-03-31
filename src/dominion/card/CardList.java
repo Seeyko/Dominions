@@ -53,11 +53,15 @@ public class CardList extends ArrayList<Card> {
 	 */
 	public Card getCard(String cardName) {
 		for (Card c: this) {
-			if (c.getName().equals(cardName)) {
+			if (c.getName().equalsIgnoreCase(cardName)) {
 				return c;
 			}
 		}
 		return null;
+	}
+	
+	public String getCardName() {
+		return this.get(0).getName();
 	}
 	
 	/**

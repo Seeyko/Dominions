@@ -20,7 +20,16 @@ public class Cellar extends ActionCard {
 
 	@Override
 	public void play(Player p) {
-		// TODO Auto-generated method stub
 		
+		/*String carteADeffaussez = "";
+		boolean veutDeffaussez = true;
+		while(veutDeffaussez == true) {
+			carteADeffaussez = p.chooseCard("Choississez une carte a défaussez", p.getGame().availableSupplyCards(), true);
+			if(carteADeffaussez == "") {
+				veutDeffaussez = false;
+			} else {
+				p.gain(carteADeffaussez);
+			}
+		}*/
 	}
 }

@@ -1,11 +1,13 @@
 package dominion;
+import java.io.ObjectInputStream.GetField;
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
 import dominion.card.Card;
 import dominion.card.CardList;
-import dominion.card.CommunCardList;
+import dominion.card.base.Village;
 
 
 /**
@@ -53,29 +55,28 @@ public class Game {
 	 */
 	public Game(String[] playerNames, List<CardList> kingdomStacks) {
 
+		this.supplyStacks = new ArrayList<>();
 
-		this.supplyStacks = kingdomStacks;
-
-		CardList allExtension = new CardList();
-		//Récupére toute les extentions auxquels vous souhaitez jouer
-		
-		
-		//Defini combien d'extension vous avez implÃ©mentÃ©.
-		int nbType_de_partie = 1;
-		List<Class<?>> classes = ClassFinder.find("dominion.card");
-		System.out.println("\nQuelles types de partie voulez vous faire :");
-		for(int i = 0; i< classes.size(); i++){
-			//Affichez les diffÃ©rentes extensions
-			System.out.println(i +" "+ classes.get(i).getSimpleName());
+		for(int i = 0; i < kingdomStacks.size(); i++) {
+				this.supplyStacks.add(kingdomStacks.get(i));
 		}
+		//Defini combien d'extension vous avez implÃ©mentÃ©.		
 		this.players = new Player[playerNames.length];
 		for(int i = 0; i < playerNames.length; i++){
 			this.players[i] = new Player(playerNames[i], this);
 		}
-		this.supplyStacks = kingdomStacks;
-		this.supplyStacks.add(new CommunCardList(playerNames.length));
 	}
 	
+	private int getNumberOfCard() {
+		int nbOfCard = 0;
+		for(int nbDeck = 0; nbDeck < this.supplyStacks.size(); nbDeck++){
+			for(int nbCard_perDeck = 0; nbCard_perDeck < this.supplyStacks.get(nbDeck).size(); nbCard_perDeck++) {
+				nbOfCard++;
+			}
+		}
+		return nbOfCard;
+	}
+
 	/**
 	 * Renvoie le joueur correspondant Ã  l'indice passÃ© en argument
 	 * On suppose {@code index} est un indice valide du tableau 
@@ -91,7 +92,7 @@ public class Game {
 	 * Renvoie le nombre de joueurs participant Ã  la partie
 	 */
 	public int numberOfPlayers() {
-		return this.currentPlayerIndex;
+		return this.players.length;
 	}
 	
 	/**
@@ -134,7 +135,13 @@ public class Game {
 	 * non-vide de la rÃ©serve (cartes royaume et cartes communes)
 	 */
 	public CardList availableSupplyCards() {
-		return this.trashedCards;
+		CardList availableCard = new CardList();
+		for(int i = 0; i <this.supplyStacks.size(); i++){
+			if(!this.supplyStacks.get(i).isEmpty()) {
+				availableCard.add(this.supplyStacks.get(i).get(0));
+			}
+		}
+		return availableCard;
 	}
 	
 	/**
@@ -177,13 +184,21 @@ public class Game {
 		/**
 		 * Recherche dans la reserve si il y a une CardList qui contient la carte @cardName
 		 */
-		for(int i = 0; i < this.supplyStacks.size() -1 && cardFound == null; i++){
-			
-			if((cardFound = this.supplyStacks.get(i).getCard(cardName)) != null){
-				return cardFound;
+
+		for(int i = 0; i < this.supplyStacks.size(); i++){
+			try{
+				cardFound = this.supplyStacks.get(i).getCard(cardName);
+				if((cardFound = this.supplyStacks.get(i).getCard(cardName)) != null){
+					return cardFound;
+				}
+			} catch (Exception e) {
+				System.out.println("Erreur supply" + i );
 			}
 			
-		}		
+		}
+			
+			
+			
 		return null;
 	}
 	
@@ -195,15 +210,20 @@ public class Game {
 	 * ne correspond au nom passÃ© en argument
 	 */
 	public Card removeFromSupply(String cardName) {
-		Card cardFound = getFromSupply(cardName);
+		Card cardFound = this.getFromSupply(cardName);
 		if(cardFound == null){
 			return cardFound;
 		}else {
+			cardFound = null;
 			/**
 			 * Retire la card @cardName si elle existe dans le supplystack
 			 */
 			for(int i = 0; i < this.supplyStacks.size() && cardFound == null; i++){
-				this.supplyStacks.get(i).remove(cardName);
+				cardFound = this.supplyStacks.get(i).remove(cardName);
+				if(cardFound != null) {
+					System.out.println("Carte rétiré : " + cardFound.getName());
+					return cardFound;
+				}
 			}
 		}
 		
@@ -229,12 +249,18 @@ public class Game {
 		} 
 		
 		for(int i = 0; i < this.supplyStacks.size(); i++){
-			if(this.supplyStacks.get(i).isEmpty()){
-				compteurDeSupplyVide++;
+			try{
+				if(this.supplyStacks.get(i).isEmpty()){
+					compteurDeSupplyVide++;
+				}
+				if(compteurDeSupplyVide == 3){
+					return true;
+				}		
+				
+			}catch (Exception e) {
+				System.out.println("Erreur " + i);
 			}
-			if(compteurDeSupplyVide == 3){
-				return true;
-			}		
+			
 		}
 		return false;
 	}
@@ -267,17 +293,15 @@ public class Game {
 
 	/*
 	 * Permet de choisir les extensions du jeu.
+	 * Pas totalement fini
 	 */
 	private CardList chooseGameType(int nbPlayer) {
-		List<Class> nbType_de_partie = new ArrayList<>();
-		//Tentative de recuper les classes qui sont dans le packages "extension";
-	
-			nbType_de_partie = Game.getClasses(Game.class.getClassLoader(), Game.class.getPackage().getName() + ".extension");
-			//Si il y a une erreure, récupere seulement la classe commune.
+		List<Class<?>> nbType_de_partie = ClassFinder.find("extension");
+		//Si il y a une erreure, récupere seulement la classe commune.
 		
 		
-		System.out.println("\nQuelles types de partie voulez vous faire :");
-		System.out.println("-1 Pour valider vos choix.");		
+		System.out.println("\nQuelles types de carte voulez vous rajoutez au jeu :");
+		System.out.println("-1 Pour terminer et lancer la partie.");		
 
 		for(int i = 0; i < nbType_de_partie.size() ; i++){
 			//Affichez les diffÃ©rentes extensions
@@ -289,13 +313,31 @@ public class Game {
 		Scanner sc = new Scanner(System.in);
 		try {
 			TypeOfGame = sc.nextInt();
+			
 		} catch (Exception e ) {
 			System.out.println("! Ce choix n'est pas valide !");
+
+			chosenCard.add(new Village("-2", -1));
+			return chosenCard;		}
+		if(TypeOfGame == -1) {
+			chosenCard.add(new Village("-1", -1));
 			return chosenCard;
 		}
-		
-				chosenCard =  (CardList) nbType_de_partie.get(TypeOfGame).getDeclaredConstructor(int.class).newInstance(2);
-				System.out.println("On prend le deck " + TypeOfGame);
+		else if(TypeOfGame >= nbType_de_partie.size()) {
+			CardList fakeList = new CardList();
+
+			chosenCard.add(new Village("-2", -1));
+			return chosenCard;
+		}
+		try {
+			chosenCard =  (CardList) nbType_de_partie.get(TypeOfGame).getDeclaredConstructor(int.class).newInstance(2);
+			System.out.println("Vous avez choisi le deck : " + nbType_de_partie.get(TypeOfGame).getSimpleName() );
+		} 
+		catch (InstantiationException | IllegalAccessException | IllegalArgumentException
+				| InvocationTargetException | NoSuchMethodException | SecurityException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
 		
 		return chosenCard;
