@@ -13,12 +13,20 @@ public class Chapel extends ActionCard {
 
 	public Chapel(String name, int cost) {
 		super(name, cost);
-		// TODO Auto-generated constructor stub
 	}
-
+	
 	@Override
 	public void play(Player p) {
-		// TODO Auto-generated method stub
-		
+		String cardName = "poupipoupipoupidou";
+		int nbCarteAJetez = 0;
+		while(cardName != "" && nbCarteAJetez < 4) {
+			cardName = p.chooseCard("Il vous reste " + (4 - nbCarteAJetez) + " carte a défausser.\nChoississez une carte a défausser", p.cardsInHand(), true);
+			try{
+				p.getGame().getTrash().add(p.getHand().remove(cardName));
+				nbCarteAJetez++;
+			} catch (Exception e) {
+				System.out.println(p.getHand().getCard(cardName));
+			}
+		}
 	}
 }

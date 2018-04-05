@@ -19,7 +19,7 @@ public class Feast extends ActionCard {
 
 	@Override
 	public void play(Player p) {
-		// TODO Auto-generated method stub
+		p.getGame().getTrash().add(p.getHand().remove(this.getName()));
 		
 	}
 }

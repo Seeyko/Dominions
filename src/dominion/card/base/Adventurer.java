@@ -1,5 +1,6 @@
 package dominion.card.base;
 import java.util.*;
+import java.util.concurrent.TimeUnit;
 
 import dominion.*;
 import dominion.card.*;
@@ -18,7 +19,24 @@ public class Adventurer extends ActionCard {
 
 	@Override
 	public void play(Player p) {
-		// TODO Auto-generated method stub
+		CardList carteTresor = new CardList();
+		CardList carteADefaussez = new CardList();
 		
+		for(int i = 0; i < p.totalCards().size() && carteTresor.size() < 2; i++) {
+			System.out.println("Retourne une carte du deck...");
+			try {
+			    Thread.sleep(1000);
+			 } catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			System.out.println(p.totalCards().get(i));
+			if(p.totalCards().get(i) instanceof TreasureCard) {
+				System.out.println(carteTresor.size() + " carte Trésor trouvé.");
+				carteTresor.add(p.totalCards().remove(i));
+			}else carteADefaussez.add(p.totalCards().remove(i));
+		}
+		p.getGame().getTrash().addAll(carteADefaussez);
+		p.getHand().addAll(carteTresor);		
 	}
 }

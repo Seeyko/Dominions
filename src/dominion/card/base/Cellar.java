@@ -20,16 +20,16 @@ public class Cellar extends ActionCard {
 
 	@Override
 	public void play(Player p) {
-		
-		/*String carteADeffaussez = "";
-		boolean veutDeffaussez = true;
-		while(veutDeffaussez == true) {
-			carteADeffaussez = p.chooseCard("Choississez une carte a défaussez", p.getGame().availableSupplyCards(), true);
-			if(carteADeffaussez == "") {
-				veutDeffaussez = false;
-			} else {
-				p.gain(carteADeffaussez);
+		p.incrementActions(1);
+		String cardName = "poupipoupipoupidou";
+		while(cardName != "") {
+			cardName = p.chooseCard("Choississez une carte a défausser", p.cardsInHand(), true);
+			try{
+				p.getGame().getTrash().add(p.getHand().remove(cardName));
+				p.drawCard();
+			} catch (Exception e) {
+				System.out.println(p.getHand().getCard(cardName));
 			}
-		}*/
+		}
 	}
 }

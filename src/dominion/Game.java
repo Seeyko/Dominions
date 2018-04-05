@@ -56,7 +56,7 @@ public class Game {
 	public Game(String[] playerNames, List<CardList> kingdomStacks) {
 
 		this.supplyStacks = new ArrayList<>();
-
+		this.trashedCards = new CardList();
 		for(int i = 0; i < kingdomStacks.size(); i++) {
 				this.supplyStacks.add(kingdomStacks.get(i));
 		}
@@ -103,6 +103,9 @@ public class Game {
 		return this.currentPlayerIndex;
 	}
 	
+	public CardList getTrash() {
+		return this.trashedCards;
+	}
 	/**
 	 * Renvoie la liste des adversaires du joueur passÃ© en argument, dans 
 	 * l'ordre dans lequel ils apparaissent Ã  partir du joueur {@code p}.
@@ -221,7 +224,6 @@ public class Game {
 			for(int i = 0; i < this.supplyStacks.size() && cardFound == null; i++){
 				cardFound = this.supplyStacks.get(i).remove(cardName);
 				if(cardFound != null) {
-					System.out.println("Carte rétiré : " + cardFound.getName());
 					return cardFound;
 				}
 			}
@@ -282,7 +284,7 @@ public class Game {
 				this.currentPlayerIndex = 0;
 			}
 		}
-		System.out.println("Game over.");
+		System.out.println("Partie terminé.");
 		// Affiche le score et les cartes de chaque joueur
 		for (int i = 0; i < this.players.length; i++) {
 			Player p = this.players[i];

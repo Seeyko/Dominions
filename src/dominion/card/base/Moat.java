@@ -19,7 +19,9 @@ public class Moat extends ReactionCard {
 
 	@Override
 	public void play(Player p) {
-		// TODO Auto-generated method stub
+		p.drawCard();
+		p.drawCard();
+		//Comment jouer la carte quand c'est le tour d'un adversaire ?
 		
 	}
 }

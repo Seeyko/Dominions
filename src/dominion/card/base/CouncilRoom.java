@@ -1,6 +1,8 @@
 package dominion.card.base;
 import java.util.*;
 
+import javax.print.attribute.standard.MediaSize.Other;
+
 import dominion.*;
 import dominion.card.*;
 
@@ -20,7 +22,14 @@ public class CouncilRoom extends ActionCard {
 
 	@Override
 	public void play(Player p) {
-		// TODO Auto-generated method stub
-		
+		for(int i = 0; i < 4; i++) {
+			if(i == 0) {
+				p.incrementBuys(1);
+				for(int j = 0; j < p.otherPlayers().size(); j++) {
+					p.otherPlayers().get(i).drawCard();
+				}
+			}
+			p.drawCard();
+		}
 	}
 }

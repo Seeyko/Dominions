@@ -19,7 +19,21 @@ public class Chancellor extends ActionCard {
 
 	@Override
 	public void play(Player p) {
-		// TODO Auto-generated method stub
-		
+		p.incrementMoney(2);
+		System.out.println("Voules vous défaussez tout votre deck et finir votre tour ? (1 = Oui, 0 = Non)");
+		int veutDefaussez = -1;
+		while(veutDefaussez != 1 && veutDefaussez != 0) {
+			try {
+				Scanner sc = new Scanner(System.in);
+				veutDefaussez = sc.nextInt();
+			} catch (Exception e) {
+				System.out.println("Voules vous défaussez tout votre deck et finir votre tour ? (1 = Oui, 0 = Non)");
+			}
+		}
+		if(veutDefaussez == 1) {
+			while(p.getHand().size() > 0) {
+				p.getGame().getTrash().add(p.getHand().remove(0));
+			}
+		}else return;
 	}
 }

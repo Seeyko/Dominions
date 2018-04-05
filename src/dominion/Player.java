@@ -76,9 +76,9 @@ public class Player {
 		this.inPlay = new CardList();
 		for(int i = 0; i < 7; i++){
 			if(i < 3){
-				this.discard.add(new Estate());
+				this.discard.add(this.getGame().removeFromSupply("Estate"));
 			}
-			this.discard.add(new Copper());
+			this.discard.add(this.getGame().removeFromSupply("Copper"));
 		}
 		this.endTurn();
 	}
@@ -104,6 +104,9 @@ public class Player {
 	
 	public Game getGame() {
 		return this.game;
+	}
+	public CardList getHand() {
+		return this.hand;
 	}
 	
 	/**
@@ -217,14 +220,13 @@ public class Player {
 		
 		if(this.draw.isEmpty()) {
 			for(int i = 0; i < this.discard.size(); i++) {
-				if(this.draw.add(this.discard.get(i)));
+				if(this.draw.add(this.discard.remove(i)));
 			}
 			this.draw.shuffle();
-		}
-		if(!this.draw.isEmpty()) {
+			return this.draw.remove(0);
+		}else {
 			return this.draw.remove(0);
 		}
-		return null;
 	}
 	
 	/**
@@ -245,7 +247,6 @@ public class Player {
 		r += String.format("Hand: %s\n", this.hand.toString());
 		return r;
 	}
-	
 	/**
 	 * Renvoie la liste de toutes les cartes TrÃ©sor dans la main du joueur
 	 */
@@ -373,7 +374,6 @@ public class Player {
 		
 		Card cardInDraw = this.getGame().getFromSupply(cardName);
 		if(cardInDraw != null && this.money >= cardInDraw.getCost() && this.buys > 0){
-			System.out.println("Achat réussi");
 			this.money = this.money - cardInDraw.getCost();
 			this.buys--;
 			this.gain(this.getGame().removeFromSupply(cardName));
@@ -535,10 +535,12 @@ public class Player {
 			this.discard.add(this.hand.remove(i));
 		}
 		for(int i = 0; i < this.inPlay.size(); i++){
+
 			this.discard.add(this.inPlay.remove(i));
 		}
 		for(int i = 0; i < 5; i++){
 			this.hand.add(this.drawCard());
+			
 		}
 		
 	}
@@ -572,7 +574,6 @@ public class Player {
 	 */
 	public void playTurn() {
 		this.startTurn();
-		
 		String cardName;
 		//Fait joue une carte action au joueur tant qu'il le peut.
 		while(this.actions > 0){
@@ -592,7 +593,7 @@ public class Player {
 		//Achete une carte tant que le joueur peut
 		cardName = "";
 
-		while(this.buys > 0){
+		while(this.buys > 0 && this.money > 0){
 			cardName = this.chooseCard("Choisis une carte a acheté : ", this.getGame().availableSupplyCards(), true);
 			if(!cardName.equals("")) {
 				
@@ -604,22 +605,7 @@ public class Player {
 					System.out.println("Vous avez acheté "+ cardName);
 				}
 				
-			} else break;
-					/*if(this.getGame().availableSupplyCards().getCard(cardName) == null){
-						System.out.println("\nUne erreur c'est produite lors de l'achat la carte " + cardName);
-						System.out.println("Verifiez que :\n-Le nom de la carte existe");
-						continue;
-					}
-					else if(this.getGame().availableSupplyCards().getCard(cardName).getCost() > this.money) {
-						System.out.println("\nUne erreur c'est produite lors de l'achat la carte " + cardName);
-						System.out.println("Verifiez que :\n-Vous avez assez de sous.");
-					
-					}else {
-						this.buys--;	
-					
-						carteAchete = true;
-					}*/
-			
+			} else break;		
 		}
 		this.endTurn();
 	}
