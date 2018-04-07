@@ -111,6 +111,9 @@ public class Player {
 	public CardList getInPlay() {
 		return this.inPlay;
 	}
+	public CardList getDiscard() {
+		return this.discard;
+	}
 	/**
 	 * Incrémente le nombre d'actions du joueur
 	 * 

@@ -18,7 +18,19 @@ public class Library extends ActionCard {
 
 	@Override
 	public void play(Player p) {
-		// TODO Auto-generated method stub
-		
+		Card cartePioche;
+		int Oui_Non = 0;
+		while(p.getHand().size() < 7) {
+			cartePioche = p.drawCard();
+			if(cartePioche instanceof ActionCard) {
+				System.out.println("Vous venez de piochez une carte action : " + cartePioche.getName());
+				System.out.println("Voulez vous la mettre de coté ? (1 = Oui, 0 = Non");
+				Scanner sc = new Scanner(System.in);
+				Oui_Non = sc.nextInt();
+				if(Oui_Non == 1) {
+					p.getDiscard().add(p.getHand().remove(cartePioche.getName()));
+				}
+			}
+		}
 	}
 }

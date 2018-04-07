@@ -19,7 +19,8 @@ public class Laboratory extends ActionCard {
 
 	@Override
 	public void play(Player p) {
-		// TODO Auto-generated method stub
-		
+		p.incrementActions(1);
+		p.drawCard();
+		p.drawCard();
 	}
 }

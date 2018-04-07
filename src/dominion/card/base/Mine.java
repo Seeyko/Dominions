@@ -18,7 +18,11 @@ public class Mine extends ActionCard {
 
 	@Override
 	public void play(Player p) {
-		// TODO Auto-generated method stub
-		
+		for(Card carteTresor : p.getHand()) {
+			if(carteTresor instanceof TreasureCard) {
+				p.getDiscard().add(carteTresor);
+				p.getHand().add(p.getGame().getCardsByCost(carteTresor.getCost()+3).get(0));
+			}
+		}
 	}
 }

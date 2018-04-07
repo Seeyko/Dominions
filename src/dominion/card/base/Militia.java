@@ -19,7 +19,12 @@ public class Militia extends AttackCard {
 
 	@Override
 	public void play(Player p) {
-		// TODO Auto-generated method stub
+		p.incrementMoney(2);
+		for(int i = 0; i < p.otherPlayers().size(); i++) {
+			while(p.otherPlayers().get(i).getHand().size() > 3) {
+				p.otherPlayers().get(i).getHand().remove(0);
+			}
+		}
 		
 	}
 }
