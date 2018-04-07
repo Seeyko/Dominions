@@ -19,7 +19,17 @@ public class Feast extends ActionCard {
 
 	@Override
 	public void play(Player p) {
-		p.getGame().getTrash().add(p.getHand().remove(this.getName()));
-		
+		// TODO Auto-generated method stub
+		CardList curList = new CardList();
+		CardList cartesAChoisir = new CardList();
+		p.getInPlay().remove(this.getName());
+		System.out.println("\n Choissiez une carte à 5 ou moins :\n");
+		for (int i = 0 ; i < 5; i++) {
+			curList = p.getGame().getCardsByCost(i);
+			for(int j = 0 ; j < curList.size(); j++) {
+				cartesAChoisir.add(curList.get(j));
+			}
+		}
+		p.gain(p.chooseCard("Choisissez une carte parmis celles-ci : ", cartesAChoisir, false));
 	}
 }

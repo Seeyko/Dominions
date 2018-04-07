@@ -88,6 +88,16 @@ public class Game {
 		return this.players[index];
 	}
 	
+	public CardList getCardsByCost(int k) {
+		CardList cardsByCost = new CardList();
+		for(int i = 0; i < this.supplyStacks.size(); i++) {
+			if (this.supplyStacks.get(i).get(0).getCost() == i) {
+				cardsByCost.add(this.supplyStacks.get(i).get(0));
+			}
+		}
+		return cardsByCost;
+	}
+
 	/**
 	 * Renvoie le nombre de joueurs participant à la partie
 	 */

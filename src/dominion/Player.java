@@ -108,7 +108,9 @@ public class Player {
 	public CardList getHand() {
 		return this.hand;
 	}
-	
+	public CardList getInPlay() {
+		return this.inPlay;
+	}
 	/**
 	 * Incrémente le nombre d'actions du joueur
 	 * 
