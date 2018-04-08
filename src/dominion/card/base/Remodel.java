@@ -19,7 +19,11 @@ public class Remodel extends ActionCard {
 
 	@Override
 	public void play(Player p) {
-		// TODO Auto-generated method stub
-		
+		for(Card carteEcarte : p.getHand()) {
+			if(carteEcarte instanceof TreasureCard) {
+				p.getDiscard().add(carteEcarte);
+				p.getDiscard().add(p.getGame().getCardsByCost(carteEcarte.getCost()+2).get(0));
+			}
+		}		
 	}
 }

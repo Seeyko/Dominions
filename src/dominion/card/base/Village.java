@@ -19,7 +19,7 @@ public class Village extends ActionCard {
 	
 	@Override
 	public void play(Player p) {
-		// TODO Auto-generated method stub
-		
+		p.drawCard();
+		p.incrementActions(2);
 	}
 }

@@ -19,7 +19,7 @@ public class Woodcutter extends ActionCard {
 
 	@Override
 	public void play(Player p) {
-		// TODO Auto-generated method stub
-		
+		p.incrementBuys(1);
+		p.incrementMoney(2);
 	}
 }

@@ -14,12 +14,12 @@ public class ThroneRoom extends ActionCard {
 
 	public ThroneRoom(String name, int cost) {
 		super(name, cost);
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override
 	public void play(Player p) {
-		// TODO Auto-generated method stub
-		
+		String cardName = p.chooseCard("Choisissez une carte action de votre main", p.getActionCards(), true);		
+		p.playCard(cardName);
+		p.playCard(cardName);
 	}
 }

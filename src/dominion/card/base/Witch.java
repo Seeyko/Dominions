@@ -19,7 +19,10 @@ public class Witch extends AttackCard {
 
 	@Override
 	public void play(Player p) {
-		// TODO Auto-generated method stub
-		
+		p.drawCard();
+		p.drawCard();
+		for(Player adv: p.otherPlayers()) {
+			adv.totalCards().add(adv.getGame().removeFromSupply("Curse"));
+		}
 	}
 }

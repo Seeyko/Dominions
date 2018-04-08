@@ -18,7 +18,14 @@ public class Workshop extends ActionCard {
 
 	@Override
 	public void play(Player p) {
-		// TODO Auto-generated method stub
-		
+		CardList curList = new CardList();
+		CardList cartesAChoisir = new CardList();
+		for (int i = 0 ; i < 4; i++) {
+			curList = p.getGame().getCardsByCost(i);
+			for(int j = 0 ; j < curList.size(); j++) {
+				cartesAChoisir.add(curList.get(j));
+			}
+		}
+		p.gain(p.chooseCard("Choisissez une carte parmis celles-ci : ", cartesAChoisir, false));
 	}
 }

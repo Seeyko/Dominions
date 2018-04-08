@@ -1,8 +1,8 @@
 package dominion.card.base;
-import java.util.*;
-
-import dominion.*;
-import dominion.card.*;
+import dominion.Player;
+import dominion.card.ActionCard;
+import dominion.card.Card;
+import dominion.card.common.Copper;
 
 /**
  * Carte Prêteur sur gages (Moneylender)
@@ -19,7 +19,9 @@ public class Moneylender extends ActionCard {
 
 	@Override
 	public void play(Player p) {
-		// TODO Auto-generated method stub
-		
+		if(p.getHand().remove("Copper") != null) {
+			p.incrementMoney(3);
+			p.getDiscard().add(new Copper());
+		}
 	}
 }

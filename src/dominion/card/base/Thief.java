@@ -18,7 +18,33 @@ public class Thief extends AttackCard {
 
 	@Override
 	public void play(Player p) {
-		// TODO Auto-generated method stub
+		Player adversaire;
+		Card carte1, carte2;
+		int carte_a_ecarter;
+		int autre_carte;
+		CardList carteEcartes = new CardList();
+		Scanner sc = new Scanner(System.in);
+		for(int i = 0; i < p.otherPlayers().size(); i++) {
+			
+			adversaire = p.otherPlayers().get(i);
+			carte1 = adversaire.totalCards().get(0);
+			carte2 = adversaire.totalCards().get(1);
+			System.out.println("Joueur : " + adversaire.getName() + " a les cartes : " + carte1 + " et " + carte2);
+			
+			if(carte1 instanceof TreasureCard && carte2 instanceof TreasureCard) {
+				System.out.println("Les deux cartes sont de type Trésor, ecarté en une : 1 ou 2");
+				
+				carte_a_ecarter = sc.nextInt();
+				autre_carte = 1 - carte_a_ecarter;
+				
+				carteEcartes.add(adversaire.totalCards().remove(carte_a_ecarter));
+				adversaire.getDiscard().add(adversaire.totalCards().remove(autre_carte));
+			}
+		}
+		while(p.chooseCard("Selectionnez une carte a recevoir parmis celle-ci : ", carteEcartes, true) != "" && carteEcartes.size() > 0) {
+			
+		}
+		
 		
 	}
 }
