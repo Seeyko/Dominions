@@ -19,10 +19,12 @@ public class Witch extends AttackCard {
 
 	@Override
 	public void play(Player p) {
-		p.drawCard();
-		p.drawCard();
-		for(Player adv: p.otherPlayers()) {
-			adv.totalCards().add(adv.getGame().removeFromSupply("Curse"));
+		p.drawCard_AndAddInHand();
+		p.drawCard_AndAddInHand();
+		for(Player adversaire: p.otherPlayers()) {
+			if(!PlayerHasMoatInHand(adversaire)){
+				adversaire.totalCards().add(adversaire.getGame().removeFromSupply("Curse"));
+			}
 		}
 	}
 }

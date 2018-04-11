@@ -1,8 +1,8 @@
 package dominion.card.base;
-import java.util.*;
+import java.util.Scanner;
 
-import dominion.*;
-import dominion.card.*;
+import dominion.Player;
+import dominion.card.ReactionCard;
 
 /**
  * Carte Douves (Moat)
@@ -19,9 +19,16 @@ public class Moat extends ReactionCard {
 
 	@Override
 	public void play(Player p) {
-		p.drawCard();
-		p.drawCard();
-		//Comment jouer la carte quand c'est le tour d'un adversaire ?
-		
+		p.drawCard_AndAddInHand();
+		p.drawCard_AndAddInHand();
+	}
+	
+	public boolean devoileCarte(Player p){
+		int answer;
+		Scanner sc = new Scanner(System.in);
+		System.out.println(p.getName() + ", veut tu jouer ta carte Moat ? (1 = Oui, 0 = Non");
+		answer = sc.nextInt();
+		if(answer == 1) return true;
+		else return false;
 	}
 }

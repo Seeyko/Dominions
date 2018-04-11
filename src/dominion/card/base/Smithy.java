@@ -18,8 +18,8 @@ public class Smithy extends ActionCard {
 
 	@Override
 	public void play(Player p) {
-		p.drawCard();
-		p.drawCard();
-		p.drawCard();
+		p.drawCard_AndAddInHand();
+		p.drawCard_AndAddInHand();
+		p.drawCard_AndAddInHand();
 	}
 }

@@ -1,4 +1,5 @@
 package dominion;
+import java.io.IOException;
 import java.util.*;
 
 import dominion.card.*;
@@ -178,6 +179,7 @@ public class Player {
 		for(Card c: this.inPlay) {
 			totalCard.add(this.inPlay.getCard(c.getName()));
 		}
+		totalCard.shuffle();
 		return totalCard;
 	}
 	
@@ -224,14 +226,20 @@ public class Player {
 	public Card drawCard() {
 		
 		if(this.draw.isEmpty()) {
+			this.discard.shuffle();
 			for(int i = 0; i < this.discard.size(); i++) {
 				if(this.draw.add(this.discard.remove(i)));
 			}
-			this.draw.shuffle();
 			return this.draw.remove(0);
 		}else {
 			return this.draw.remove(0);
 		}
+	}
+	
+	public Card drawCard_AndAddInHand(){
+		Card cartePioche = this.drawCard();
+		this.hand.add(cartePioche);
+		return cartePioche;
 	}
 	
 	/**
@@ -494,7 +502,8 @@ public class Player {
 	 * mÃªme renvoyer {@code ""} s'il n'a aucune carte Action en main) :
 	 * <pre>
 	 * {@code
-	 * CardList choices = new CardList();
+	 * CardList choices = new CardList();this.actions = 1;
+		this.buys = 1;
 	 * for (Card c: p.cardsInHand()) {
 	 *   if (c.getTypes().contains(CardType.Action)) {
 	 *     choices.add(c);
@@ -536,18 +545,21 @@ public class Player {
 		this.actions = 0;
 		this.money = 0;
 		this.buys = 0;
-		for(int i = 0; i < this.hand.size(); i++){
-			this.discard.add(this.hand.remove(i));
-		}
-		for(int i = 0; i < this.inPlay.size(); i++){
-
-			this.discard.add(this.inPlay.remove(i));
-		}
-		for(int i = 0; i < 5; i++){
-			this.hand.add(this.drawCard());
-			
-		}
 		
+		//On vide la main et on la met dans la defausse
+		while(!this.hand.isEmpty()){
+			System.out.println("On enleve un " + this.hand.get(0).getName() + " de hand de " + this.getName());
+			this.discard.add(this.hand.remove(0));
+		}
+		//On vide les cartes en jeu et on les met dans la defausse
+		while(!this.inPlay.isEmpty()){
+			System.out.println("On enleve un " + this.inPlay.get(0).getName() + " de inPlay de " + this.getName());
+			this.discard.add(this.inPlay.remove(0));
+		}
+		this.discard.shuffle();
+		for(int i = 0; i < 5; i++){
+			this.drawCard_AndAddInHand();
+		}
 	}
 	
 	/**
@@ -599,19 +611,19 @@ public class Player {
 		cardName = "";
 
 		while(this.buys > 0 && this.money > 0){
-			cardName = this.chooseCard("Choisis une carte a acheté : ", this.getGame().availableSupplyCards(), true);
+			cardName = this.chooseCard("Choisis une carte a achete : ", this.getGame().availableSupplyCards(), true);
 			if(!cardName.equals("")) {
 				
-				Card testBuyCard = new Copper();
+				Card testBuyCard = null;
 				testBuyCard = this.buyCard(cardName);
 				if(testBuyCard == null) {
-					System.out.println("L'achat a échoué, vérifier que la carte existe\nEt que vous avez assez d'argent.");
+					System.out.println("L'achat a echoue verifiez que vous avez assez d'argent.");
 				}else {
-					System.out.println("Vous avez acheté "+ cardName);
+					System.out.println("Vous avez achete "+ cardName);
 				}
 				
 			} else break;		
 		}
-		this.endTurn();
+		this.endTurn();  
 	}
 }

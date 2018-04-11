@@ -22,10 +22,11 @@ public class Workshop extends ActionCard {
 		CardList cartesAChoisir = new CardList();
 		for (int i = 0 ; i < 4; i++) {
 			curList = p.getGame().getCardsByCost(i);
-			for(int j = 0 ; j < curList.size(); j++) {
-				cartesAChoisir.add(curList.get(j));
-			}
+			cartesAChoisir.addAll(curList);
+			
 		}
-		p.gain(p.chooseCard("Choisissez une carte parmis celles-ci : ", cartesAChoisir, false));
+		int randomChoisir = (int) (Math.random() * (cartesAChoisir.size() -1));
+		p.getHand().add(cartesAChoisir.get(randomChoisir));
+		
 	}
 }

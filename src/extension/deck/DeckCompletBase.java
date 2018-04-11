@@ -83,13 +83,7 @@ public class DeckCompletBase {
 
 	public List<CardList> VictoryDeck;
 	public DeckCompletBase() {
-		this.initAllVar();
-		try {
-			TimeUnit.SECONDS.sleep(3);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		this.initAllVarBase();
 		//Initialisation carte Tresor
 		for(int i = 0; i < 60; i++) {
 			this.copper.add(new Copper());
@@ -121,7 +115,7 @@ public class DeckCompletBase {
 			this.festival.add(new Festival("Festival", 3));
 			this.smithy.add(new Smithy("Forge", 3));
 			this.laboratory.add(new Laboratory("laboratoire", 3));
-			this.market.add(new Market("Marché", 3));
+			this.market.add(new Market("Marchï¿½", 3));
 			this.militia.add(new Militia("Milice", 3));
 			this.mine.add(new Mine("Mine", 3));
 			this.moneyLender.add(new Moneylender("Preteur sur gages", 3));
@@ -171,11 +165,9 @@ public class DeckCompletBase {
 		RoyaumeDeck.add(this.village);
 		RoyaumeDeck.add(this.thief);
 
-
-
 	}
 
-	public void initAllVar() {
+	public void initAllVarBase() {
 		this.copper = new CardList();
 		this.silver = new CardList();
 		this.gold = new CardList();

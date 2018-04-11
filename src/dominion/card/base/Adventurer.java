@@ -14,29 +14,35 @@ public class Adventurer extends ActionCard {
 
 	public Adventurer(String name, int cost) {
 		super(name, cost);
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override
 	public void play(Player p) {
 		CardList carteTresor = new CardList();
 		CardList carteADefaussez = new CardList();
+		Card cartePiocher;
 		
-		for(int i = 0; i < p.totalCards().size() && carteTresor.size() < 2; i++) {
+		while((cartePiocher = p.drawCard()) != null && carteTresor.size() < 2){
 			System.out.println("Retourne une carte du deck...");
+			
 			try {
 			    Thread.sleep(1000);
 			 } catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			System.out.println(p.totalCards().get(i));
-			if(p.totalCards().get(i) instanceof TreasureCard) {
-				System.out.println(carteTresor.size() + " carte Trésor trouvé.");
-				carteTresor.add(p.totalCards().remove(i));
-			}else carteADefaussez.add(p.totalCards().remove(i));
+			System.out.println("Carte retourne : " + cartePiocher.getName());
+			
+			if(cartePiocher instanceof TreasureCard) {
+				System.out.println("C'est une carte tresor !");
+				System.out.println(carteTresor.size() + " carte Tresor trouve.");
+				carteTresor.add(cartePiocher);
+			}else carteADefaussez.add(cartePiocher);
 		}
-		p.getGame().getTrash().addAll(carteADefaussez);
-		p.getHand().addAll(carteTresor);		
+		
+		p.getDiscard().addAll(carteADefaussez);
+		p.getDiscard().addAll(carteTresor);			
 	}
+	
+	
 }

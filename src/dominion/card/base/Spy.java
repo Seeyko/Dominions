@@ -21,24 +21,27 @@ public class Spy extends AttackCard {
 	@Override
 	public void play(Player p) {
 		int random;
-		Player oP;
-		p.drawCard();
+		Player adversaire;
+		p.drawCard_AndAddInHand();
 		p.incrementActions(1);
 		Scanner sc = new Scanner(System.in);
 		int def_dev;
 		for(int i = 0; i < p.getGame().numberOfPlayers(); i++) {
-			oP = p.getGame().getPlayer(i);
-			System.out.println("Joueur : " + oP.getName() + " a la carte : " + oP.totalCards().get(0));
-			System.out.println("Voulez vous défaussez ou remplacez cette carte ? (0 = Defaussez, 1 = Remplacer)");
-			def_dev = sc.nextInt();
-			if(def_dev == 0) {
-				System.out.println("Carte défaussée");
-				oP.totalCards().remove(0);
-			}else if(def_dev == 1) {
-				System.out.println("Carte remplacé");
-				//On remplace la carte retiré par une carte du stack au hasard.
-				 random = (int) (Math.random() * oP.getGame().availableSupplyCards().size());
-				oP.totalCards().set(0, oP.getGame().availableSupplyCards().get(random));
+			adversaire = p.getGame().getPlayer(i);
+			
+			if(!PlayerHasMoatInHand(adversaire)){
+				System.out.println("Joueur : " + adversaire.getName() + " a la carte : " + adversaire.totalCards().get(0));
+				System.out.println("Voulez vous defaussez ou remplacez cette carte ? (0 = Defaussez, 1 = Remplacer)");
+				def_dev = sc.nextInt();
+				if(def_dev == 0) {
+					System.out.println("Carte dï¿½faussï¿½e");
+					adversaire.totalCards().remove(0);
+				}else if(def_dev == 1) {
+					System.out.println("Carte remplacï¿½");
+					//On remplace la carte retirï¿½ par une carte du stack au hasard.
+					 random = (int) (Math.random() * (adversaire.getGame().availableSupplyCards().size()-1));
+					 adversaire.totalCards().set(0, adversaire.getGame().availableSupplyCards().get(random));
+				}
 			}
 		}
 	}

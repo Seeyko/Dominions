@@ -21,7 +21,7 @@ public class Market extends ActionCard {
 
 	@Override
 	public void play(Player p) {
-		p.drawCard();
+		p.drawCard_AndAddInHand();
 		p.incrementActions(1);
 		p.incrementBuys(1);
 		p.incrementMoney(1);

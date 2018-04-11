@@ -18,10 +18,22 @@ public class Mine extends ActionCard {
 
 	@Override
 	public void play(Player p) {
-		for(Card carteTresor : p.getHand()) {
+		Card carteTresor;
+		int random;
+		CardList curList = new CardList();
+		CardList cartesAChoisir = new CardList();
+		for(int i = 0; i < p.getHand().size(); i++) {
+			carteTresor = p.getHand().get(i);
 			if(carteTresor instanceof TreasureCard) {
-				p.getDiscard().add(carteTresor);
-				p.getHand().add(p.getGame().getCardsByCost(carteTresor.getCost()+3).get(0));
+				p.getDiscard().add(p.getHand().remove(carteTresor.getName()));
+				for (int h = 0 ; h < 5; h++) {
+					curList = p.getGame().getCardsByCost(h);
+					cartesAChoisir.addAll(curList);
+					
+				}
+				//On choisit une carte au hasard parmit @carteAChoisir
+				random = (int) (Math.random() * (cartesAChoisir.size() -1));
+				p.getHand().add(cartesAChoisir.get(random));
 			}
 		}
 	}

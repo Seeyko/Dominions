@@ -91,7 +91,7 @@ public class Game {
 	public CardList getCardsByCost(int k) {
 		CardList cardsByCost = new CardList();
 		for(int i = 0; i < this.supplyStacks.size(); i++) {
-			if (this.supplyStacks.get(i).get(0).getCost() == i) {
+			if (this.supplyStacks.get(i).get(0).getCost() == k) {
 				cardsByCost.add(this.supplyStacks.get(i).get(0));
 			}
 		}
@@ -294,7 +294,7 @@ public class Game {
 				this.currentPlayerIndex = 0;
 			}
 		}
-		System.out.println("Partie terminé.");
+		System.out.println("Partie terminï¿½.");
 		// Affiche le score et les cartes de chaque joueur
 		for (int i = 0; i < this.players.length; i++) {
 			Player p = this.players[i];
@@ -309,7 +309,7 @@ public class Game {
 	 */
 	private CardList chooseGameType(int nbPlayer) {
 		List<Class<?>> nbType_de_partie = ClassFinder.find("extension");
-		//Si il y a une erreure, récupere seulement la classe commune.
+		//Si il y a une erreure, rï¿½cupere seulement la classe commune.
 		
 		
 		System.out.println("\nQuelles types de carte voulez vous rajoutez au jeu :");
@@ -354,5 +354,6 @@ public class Game {
 		
 		return chosenCard;
 	}
+
 	
 }

@@ -21,10 +21,11 @@ public class Library extends ActionCard {
 		Card cartePioche;
 		int Oui_Non = 0;
 		while(p.getHand().size() < 7) {
-			cartePioche = p.drawCard();
+			cartePioche = p.drawCard_AndAddInHand();
+
 			if(cartePioche instanceof ActionCard) {
 				System.out.println("Vous venez de piochez une carte action : " + cartePioche.getName());
-				System.out.println("Voulez vous la mettre de coté ? (1 = Oui, 0 = Non");
+				System.out.println("Voulez vous la mettre de cotï¿½ ? (1 = Oui, 0 = Non");
 				Scanner sc = new Scanner(System.in);
 				Oui_Non = sc.nextInt();
 				if(Oui_Non == 1) {

@@ -19,11 +19,23 @@ public class Remodel extends ActionCard {
 
 	@Override
 	public void play(Player p) {
-		for(Card carteEcarte : p.getHand()) {
-			if(carteEcarte instanceof TreasureCard) {
-				p.getDiscard().add(carteEcarte);
-				p.getDiscard().add(p.getGame().getCardsByCost(carteEcarte.getCost()+2).get(0));
-			}
-		}		
+		CardList curList = new CardList();
+		CardList cartesAChoisir = new CardList();
+		
+		int randomChoisir;
+		int randomEcartement = (int) (Math.random() * (p.getHand().size()-1));
+		Card carteEcarte = p.getHand().remove(randomEcartement);
+		int cost = carteEcarte.getCost();
+		
+		for (int h = 0 ; h < cost; h++) {
+			curList = p.getGame().getCardsByCost(h);
+			cartesAChoisir.addAll(curList);
+			
+		}
+		//On choisit une carte au hasard parmit @carteAChoisir
+		randomChoisir = (int) (Math.random() * (cartesAChoisir.size() -1));
+		p.getHand().add(cartesAChoisir.get(randomChoisir));
+			
+				
 	}
 }

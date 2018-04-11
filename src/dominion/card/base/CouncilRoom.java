@@ -26,10 +26,10 @@ public class CouncilRoom extends ActionCard {
 			if(i == 0) {
 				p.incrementBuys(1);
 				for(int j = 0; j < p.otherPlayers().size(); j++) {
-					p.otherPlayers().get(i).drawCard();
+					p.otherPlayers().get(i).drawCard_AndAddInHand();
 				}
 			}
-			p.drawCard();
+			p.drawCard_AndAddInHand();
 		}
 	}
 }
