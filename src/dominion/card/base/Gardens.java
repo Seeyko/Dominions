@@ -13,12 +13,15 @@ public class Gardens extends VictoryCard {
 
 	public Gardens(String name, int cost) {
 		super(name, cost);
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override
 	public void play(Player p) {
-		// TODO Auto-generated method stub
 		
+	}
+	
+	@Override
+	public int victoryValue(Player p) {
+		return p.totalCards().size()%10;
 	}
 }

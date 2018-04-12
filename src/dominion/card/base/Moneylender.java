@@ -19,9 +19,10 @@ public class Moneylender extends ActionCard {
 
 	@Override
 	public void play(Player p) {
-		if(p.getHand().remove("Copper") != null) {
+		Card cuivre = p.getHand().remove("Copper");
+		if(cuivre != null) {
+			p.getGame().getTrash().add(cuivre);
 			p.incrementMoney(3);
-			p.getDiscard().add(new Copper());
 		}
 	}
 }

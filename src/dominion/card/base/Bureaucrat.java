@@ -21,7 +21,7 @@ public class Bureaucrat extends AttackCard {
 	public void play(Player p) {
 		Card carteARetirez;
 		Player adversaire;
-		p.gain(p.getGame().removeFromSupply("Silver"));
+		p.gain("Silver");
 		for(int i = 0; i < p.otherPlayers().size(); i++) {
 			adversaire = p.otherPlayers().get(i);
 			
@@ -33,10 +33,14 @@ public class Bureaucrat extends AttackCard {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-				if(adversaire.getTreasureCards().size() != 0) {
-					carteARetirez = adversaire.getTreasureCards().remove(0);
-					adversaire.totalCards().add(carteARetirez);
-					System.out.println("carte trouv� : " + carteARetirez + " on la retire et la place sur le deck...");
+				if(adversaire.getVictoryCards().size() != 0) {
+					
+					carteARetirez = adversaire.getVictoryCards().get(0);
+					if(carteARetirez != null){
+						adversaire.getHand().remove(carteARetirez.getName());
+						System.out.println("carte trouve : " + carteARetirez.getName() + " on la retire et la place sur le deck...");
+					}
+					adversaire.gain(carteARetirez);
 					try {
 					    Thread.sleep(1000);
 					 } catch (InterruptedException e) {
@@ -44,7 +48,7 @@ public class Bureaucrat extends AttackCard {
 						e.printStackTrace();
 					}
 				} else {
-					System.out.println(adversaire.getName() + " n'as pas de carte tr�sor en main, voila sa main : " + adversaire.getHand());
+					System.out.println(adversaire.getName() + " n'as pas de carte tresor en main, voila sa main : " + adversaire.getHand());
 				}
 			}
 		}

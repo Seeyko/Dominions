@@ -14,11 +14,15 @@ public abstract class AttackCard extends ActionCard {
 	}
 	
 	public boolean PlayerHasMoatInHand(Player p){
-			Moat moat = (Moat) p.getHand().getCard("Moat");
-			if(moat != null)
+		Card moat;	
+		for(int i = 0; i < p.getHand().size(); i++){
+			moat = p.getHand().get(i);
+			if(moat instanceof Moat)
 			{
-				return moat.devoileCarte(p);
+				return ((Moat)moat).devoileCarte(p);
 			}
-			else return false;
+		}
+		return false;
+			
 	}
 }

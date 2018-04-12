@@ -23,13 +23,12 @@ public class CouncilRoom extends ActionCard {
 	@Override
 	public void play(Player p) {
 		for(int i = 0; i < 4; i++) {
-			if(i == 0) {
-				p.incrementBuys(1);
-				for(int j = 0; j < p.otherPlayers().size(); j++) {
-					p.otherPlayers().get(i).drawCard_AndAddInHand();
-				}
-			}
 			p.drawCard_AndAddInHand();
 		}
+		p.incrementBuys(1);
+		for(int j = 0; j < p.otherPlayers().size(); j++) {
+			p.otherPlayers().get(j).drawCard_AndAddInHand();
+		}
 	}
+	
 }

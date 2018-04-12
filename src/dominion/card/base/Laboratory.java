@@ -19,8 +19,8 @@ public class Laboratory extends ActionCard {
 
 	@Override
 	public void play(Player p) {
+		p.drawCard_AndAddInHand();
+		p.drawCard_AndAddInHand();
 		p.incrementActions(1);
-		p.drawCard_AndAddInHand();
-		p.drawCard_AndAddInHand();
 	}
 }

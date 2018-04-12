@@ -22,12 +22,12 @@ public class Feast extends ActionCard {
 		// TODO Auto-generated method stub
 		CardList curList = new CardList();
 		CardList cartesAChoisir = new CardList();
-		p.getInPlay().remove(this.getName());
+				
+		p.getGame().getTrash().add(p.getInPlay().remove(this.getName()));
+		
 		for (int i = 0 ; i < 5; i++) {
 			curList = p.getGame().getCardsByCost(i);
-			for(int j = 0 ; j < curList.size(); j++) {
-				cartesAChoisir.add(curList.get(j));
-			}
+			cartesAChoisir.addAll(curList);
 		}
 		p.gain(p.chooseCard("Choisissez une carte parmis celles-ci : ", cartesAChoisir, true));
 	}

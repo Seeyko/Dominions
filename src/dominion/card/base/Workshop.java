@@ -20,13 +20,15 @@ public class Workshop extends ActionCard {
 	public void play(Player p) {
 		CardList curList = new CardList();
 		CardList cartesAChoisir = new CardList();
+		Card carteGagner;
 		for (int i = 0 ; i < 4; i++) {
 			curList = p.getGame().getCardsByCost(i);
 			cartesAChoisir.addAll(curList);
 			
 		}
 		int randomChoisir = (int) (Math.random() * (cartesAChoisir.size() -1));
-		p.getHand().add(cartesAChoisir.get(randomChoisir));
-		
+		carteGagner = cartesAChoisir.get(randomChoisir);
+		p.getHand().add(carteGagner);
+		System.out.println("Vous avez recu " + carteGagner.getName());
 	}
 }

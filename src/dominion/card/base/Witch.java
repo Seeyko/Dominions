@@ -23,7 +23,7 @@ public class Witch extends AttackCard {
 		p.drawCard_AndAddInHand();
 		for(Player adversaire: p.otherPlayers()) {
 			if(!PlayerHasMoatInHand(adversaire)){
-				adversaire.totalCards().add(adversaire.getGame().removeFromSupply("Curse"));
+				adversaire.gain("Curse");
 			}
 		}
 	}

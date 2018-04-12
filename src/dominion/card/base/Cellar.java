@@ -22,13 +22,15 @@ public class Cellar extends ActionCard {
 	public void play(Player p) {
 		p.incrementActions(1);
 		String cardName = "poupipoupipoupidou";
-		while(cardName != "") {
-			cardName = p.chooseCard("Choississez une carte a d�fausser", p.cardsInHand(), true);
+		while(!cardName.equals("")) {
+			cardName = p.chooseCard("Choississez une carte a defausser", p.cardsInHand(), true);
 			try{
-				p.getGame().getTrash().add(p.getHand().remove(cardName));
-				p.drawCard_AndAddInHand();
+				if(!cardName.equals("")) {
+					p.gain(p.getHand().remove(cardName));
+					p.drawCard_AndAddInHand();
+				}
 			} catch (Exception e) {
-				System.out.println(p.getHand().getCard(cardName));
+				System.out.println("Error : card = " + cardName);
 			}
 		}
 	}

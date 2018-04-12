@@ -21,21 +21,26 @@ public class Remodel extends ActionCard {
 	public void play(Player p) {
 		CardList curList = new CardList();
 		CardList cartesAChoisir = new CardList();
-		
+		Card carteGagne;
 		int randomChoisir;
-		int randomEcartement = (int) (Math.random() * (p.getHand().size()-1));
-		Card carteEcarte = p.getHand().remove(randomEcartement);
-		int cost = carteEcarte.getCost();
+		if(p.getHand().size() > 0){
+			int randomEcartement = (int) (Math.random() * (p.getHand().size()-1));
 		
-		for (int h = 0 ; h < cost; h++) {
-			curList = p.getGame().getCardsByCost(h);
-			cartesAChoisir.addAll(curList);
+			Card carteEcarte = p.getHand().remove(randomEcartement);
+			int cost = carteEcarte.getCost();
 			
-		}
-		//On choisit une carte au hasard parmit @carteAChoisir
-		randomChoisir = (int) (Math.random() * (cartesAChoisir.size() -1));
-		p.getHand().add(cartesAChoisir.get(randomChoisir));
+			for (int h = cost ; h < cost+2; h++) {
+				curList = p.getGame().getCardsByCost(h);
+				cartesAChoisir.addAll(curList);
 			
-				
+			}
+			//On choisit une carte au hasard parmit @carteAChoisir
+			randomChoisir = (int) (Math.random() * (cartesAChoisir.size() -1));
+			carteGagne = cartesAChoisir.get(randomChoisir);
+			p.getHand().add(carteGagne);
+			p.getGame().removeFromSupply(carteGagne.getName());
+			System.out.println("Vous avez recu " + carteGagne.getName());
+		}else System.out.println("Votre main est vide on ne peut rien faire.");
+						
 	}
 }

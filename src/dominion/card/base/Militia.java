@@ -23,10 +23,9 @@ public class Militia extends AttackCard {
 		Player adversaire;
 		for(int i = 0; i < p.otherPlayers().size(); i++) {
 			adversaire  = p.otherPlayers().get(i);
-			
 			if(!PlayerHasMoatInHand(adversaire)){
 				while(adversaire.getHand().size() > 3) {
-					adversaire.getDiscard().add(p.getHand().remove(0));
+					adversaire.gain(adversaire.getHand().remove(0));
 				}
 			}
 		}

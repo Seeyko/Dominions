@@ -35,9 +35,15 @@ public class Adventurer extends ActionCard {
 			
 			if(cartePiocher instanceof TreasureCard) {
 				System.out.println("C'est une carte tresor !");
-				System.out.println(carteTresor.size() + " carte Tresor trouve.");
 				carteTresor.add(cartePiocher);
+				System.out.println(carteTresor.size() + " carte Tresor trouve.");
 			}else carteADefaussez.add(cartePiocher);
+			try {
+			    Thread.sleep(1000);
+			 } catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 		
 		p.getDiscard().addAll(carteADefaussez);

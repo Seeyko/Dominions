@@ -7,7 +7,9 @@ import dominion.card.*;
 /**
  * Carte Voleur (Thief)
  * 
- * Tous vos adversaires dévoilent les 2 premières cartes de leur deck. S'ils dévoilent des cartes Trésor, ils en écartent 1 de votre choix. Parmi ces cartes Trésor écartées, recevez celles de votre choix. Les autres cartes dévoilées sont défaussées.
+ * Tous vos adversaires dévoilent les 2 premières cartes de leur deck. 
+ * S'ils dévoilent des cartes Trésor, ils en écartent 1 de votre choix. 
+ * Parmi ces cartes Trésor écartées, recevez celles de votre choix. Les autres cartes dévoilées sont défaussées.
  */
 public class Thief extends AttackCard {
 
@@ -18,6 +20,7 @@ public class Thief extends AttackCard {
 
 	@Override
 	public void play(Player p) {
+		String carteARecevoir = "poupipoupipoupidou";
 		Player adversaire;
 		Card carte1, carte2;
 		int carte_a_ecarter;
@@ -29,8 +32,8 @@ public class Thief extends AttackCard {
 			adversaire = p.otherPlayers().get(i);
 			
 			if(!PlayerHasMoatInHand(adversaire)){
-				carte1 = adversaire.totalCards().get(0);
-				carte2 = adversaire.totalCards().get(1);
+				carte1 = adversaire.getHand().get(0);
+				carte2 = adversaire.getHand().get(1);
 				System.out.println("Joueur : " + adversaire.getName() + " a les cartes : " + carte1 + " et " + carte2);
 				
 				if(carte1 instanceof TreasureCard && carte2 instanceof TreasureCard) {
@@ -39,14 +42,14 @@ public class Thief extends AttackCard {
 					carte_a_ecarter = sc.nextInt();
 					autre_carte = 1 - carte_a_ecarter;
 					
-					carteEcartes.add(adversaire.totalCards().remove(carte_a_ecarter));
-					adversaire.getDiscard().add(adversaire.totalCards().remove(autre_carte));
+					carteEcartes.add(adversaire.getHand().remove(carte_a_ecarter));
+					adversaire.getDiscard().add(adversaire.getHand().remove(autre_carte));
 				}
 			}
 		}
-		while(p.chooseCard("Selectionnez une carte a recevoir parmis celle-ci : ", carteEcartes, true) != "" && carteEcartes.size() > 0) {
-			
-		}
+		carteARecevoir = p.chooseCard("Selectionnez une carte a recevoir parmis celle-ci : ", carteEcartes, false);
+		p.getHand().add(carteEcartes.remove(carteARecevoir));
+		p.gain(carteEcartes.get(0));
 		
 		
 	}

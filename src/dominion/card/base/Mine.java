@@ -25,15 +25,14 @@ public class Mine extends ActionCard {
 		for(int i = 0; i < p.getHand().size(); i++) {
 			carteTresor = p.getHand().get(i);
 			if(carteTresor instanceof TreasureCard) {
-				p.getDiscard().add(p.getHand().remove(carteTresor.getName()));
-				for (int h = 0 ; h < 5; h++) {
+				p.getGame().getTrash().add(p.getHand().remove(carteTresor.getName()));
+				for (int h = carteTresor.getCost(); h < carteTresor.getCost() + 3; h++) {
 					curList = p.getGame().getCardsByCost(h);
 					cartesAChoisir.addAll(curList);
-					
 				}
 				//On choisit une carte au hasard parmit @carteAChoisir
 				random = (int) (Math.random() * (cartesAChoisir.size() -1));
-				p.getHand().add(cartesAChoisir.get(random));
+				System.out.println("Vous avez recuperer une carte " + p.getHand().add(cartesAChoisir.get(random)));
 			}
 		}
 	}

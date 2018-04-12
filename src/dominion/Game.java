@@ -294,7 +294,7 @@ public class Game {
 				this.currentPlayerIndex = 0;
 			}
 		}
-		System.out.println("Partie termin�.");
+		System.out.println("Partie termine.");
 		// Affiche le score et les cartes de chaque joueur
 		for (int i = 0; i < this.players.length; i++) {
 			Player p = this.players[i];

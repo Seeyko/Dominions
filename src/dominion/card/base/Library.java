@@ -19,19 +19,21 @@ public class Library extends ActionCard {
 	@Override
 	public void play(Player p) {
 		Card cartePioche;
+		CardList carteDeCoté = new CardList();
 		int Oui_Non = 0;
 		while(p.getHand().size() < 7) {
 			cartePioche = p.drawCard_AndAddInHand();
 
 			if(cartePioche instanceof ActionCard) {
 				System.out.println("Vous venez de piochez une carte action : " + cartePioche.getName());
-				System.out.println("Voulez vous la mettre de cot� ? (1 = Oui, 0 = Non");
+				System.out.println("Voulez vous la mettre de cote ? (1 = Oui, 0 = Non");
 				Scanner sc = new Scanner(System.in);
 				Oui_Non = sc.nextInt();
 				if(Oui_Non == 1) {
-					p.getDiscard().add(p.getHand().remove(cartePioche.getName()));
+					carteDeCoté.add(cartePioche);
 				}
 			}
 		}
+		p.getDiscard().addAll(carteDeCoté);
 	}
 }
