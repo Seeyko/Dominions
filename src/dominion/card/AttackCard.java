@@ -1,4 +1,6 @@
 package dominion.card;
+import java.util.List;
+
 import dominion.Player;
 import dominion.card.base.Moat;
 
@@ -24,5 +26,10 @@ public abstract class AttackCard extends ActionCard {
 		}
 		return false;
 			
+	}
+	public List<CardType> getTypes() {
+		List<CardType> types = super.getTypes();
+		types.add(CardType.Attack);
+		return types;
 	}
 }

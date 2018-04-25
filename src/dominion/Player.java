@@ -8,6 +8,7 @@ import java.util.Set;
 import dominion.card.ActionCard;
 import dominion.card.Card;
 import dominion.card.CardList;
+import dominion.card.CardType;
 import dominion.card.TreasureCard;
 import dominion.card.VictoryCard;
 import dominion.card.base.Bureaucrat;
@@ -277,7 +278,7 @@ public class Player {
 	 */
 	public Card getVictoryCard(){
 		for(int i = 0; i < this.hand.size(); i++){
-			if(this.hand.get(i) instanceof VictoryCard){
+			if(this.hand.get(i).getTypes().contains(CardType.Victory)){
 				return this.hand.get(i);
 			}
 		}
@@ -289,7 +290,7 @@ public class Player {
 	 */
 	public Card getTreasureCard(){
 		for(int i = 0; i < this.hand.size(); i++){
-			if(this.hand.get(i) instanceof TreasureCard){
+			if(this.hand.get(i).getTypes().contains(CardType.Treasure)){
 				return this.hand.get(i);
 			}
 		}
@@ -301,7 +302,7 @@ public class Player {
 	 */
 	public Card getActionCard(){
 		for(int i = 0; i < this.hand.size(); i++){
-			if(this.hand.get(i) instanceof ActionCard){
+			if(this.hand.get(i).getTypes().contains(CardType.Action)){
 				return this.hand.get(i);
 			}
 		}
@@ -314,7 +315,7 @@ public class Player {
 		CardList TreasureInHand = new CardList();
 		
 		for(Card t : this.hand){
-			if(t instanceof TreasureCard){
+			if(t.getTypes().contains(CardType.Treasure)){
 				TreasureInHand.add(t);
 			}
 		}
@@ -328,7 +329,7 @@ public class Player {
 		CardList ActionInHand = new CardList();
 		
 		for(Card t : this.hand){
-			if(t instanceof ActionCard){
+			if(t.getTypes().contains(CardType.Action)){
 				ActionInHand.add(t);
 			}
 		}
@@ -342,7 +343,7 @@ public class Player {
 		CardList VictoryInHand = new CardList();
 		
 		for(Card t : this.hand){
-			if(t instanceof VictoryCard){
+			if(t.getTypes().contains(CardType.Victory)){
 				VictoryInHand.add(t);
 			}
 		}

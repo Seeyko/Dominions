@@ -24,7 +24,7 @@ public class Mine extends ActionCard {
 		CardList cartesAChoisir = new CardList();
 		for(int i = 0; i < p.getHand().size(); i++) {
 			carteTresor = p.getHand().get(i);
-			if(carteTresor instanceof TreasureCard) {
+			if(carteTresor.getTypes().contains(CardType.Treasure)) {
 				p.getGame().getTrash().add(p.getHand().remove(carteTresor.getName()));
 				for (int h = carteTresor.getCost(); h < carteTresor.getCost() + 3; h++) {
 					curList = p.getGame().getCardsByCost(h);

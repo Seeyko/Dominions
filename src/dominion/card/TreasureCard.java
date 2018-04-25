@@ -12,4 +12,10 @@ public abstract class TreasureCard extends Card {
 		super(name, cost);
 		// TODO Auto-generated constructor stub
 	}
+	
+	public List<CardType> getTypes() {
+		List<CardType> types = super.getTypes();
+		types.add(CardType.Treasure);
+		return types;
+	}
 }

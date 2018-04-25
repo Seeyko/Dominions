@@ -13,4 +13,9 @@ public abstract class ReactionCard extends ActionCard {
 		super(name, cost);
 		// TODO Auto-generated constructor stub
 	}
+	public List<CardType> getTypes() {
+		List<CardType> types = super.getTypes();
+		types.add(CardType.Reaction);
+		return types;
+	}
 }

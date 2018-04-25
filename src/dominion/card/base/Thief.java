@@ -36,7 +36,7 @@ public class Thief extends AttackCard {
 				carte2 = adversaire.getHand().get(1);
 				System.out.println("Joueur : " + adversaire.getName() + " a les cartes : " + carte1 + " et " + carte2);
 				
-				if(carte1 instanceof TreasureCard && carte2 instanceof TreasureCard) {
+				if(carte1.getTypes().contains(CardType.Treasure) && carte2.getTypes().contains(CardType.Treasure)) {
 					System.out.println("Les deux cartes sont de type Tresor, ecarte en une : 1 ou 2");
 					
 					carte_a_ecarter = sc.nextInt();

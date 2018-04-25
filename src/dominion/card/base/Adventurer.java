@@ -33,7 +33,7 @@ public class Adventurer extends ActionCard {
 			}
 			System.out.println("Carte retourne : " + cartePiocher.getName());
 			
-			if(cartePiocher instanceof TreasureCard) {
+			if(cartePiocher.getTypes().contains(CardType.Treasure)) {
 				System.out.println("C'est une carte tresor !");
 				carteTresor.add(cartePiocher);
 				System.out.println(carteTresor.size() + " carte Tresor trouve.");
