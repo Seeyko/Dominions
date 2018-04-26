@@ -1,13 +1,16 @@
 package dominion;
-import java.io.ObjectInputStream.GetField;
-import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
 import dominion.card.Card;
 import dominion.card.CardList;
-import dominion.card.base.Village;
+import dominion.card.common.Copper;
+import dominion.card.common.Curse;
+import dominion.card.common.Duchy;
+import dominion.card.common.Estate;
+import dominion.card.common.Gold;
+import dominion.card.common.Province;
+import dominion.card.common.Silver;
 
 
 /**
@@ -50,17 +53,70 @@ public class Game {
 	 * - 60 Copper
 	 * - 40 Silver
 	 * - 30 Gold
-	 * - 8 (si 2 joueurs) ou 12 (si 3 ou 4 joueurs) Estate, Duchy et Province 	 * - 10 * (n-1) Curse où n est le nombre de joueurs dans la partie
+	 * - 8 (si 2 joueurs) ou 12 (si 3 ou 4 joueurs) Estate, Duchy et Province 	 
+	 * - 10 * (n-1) Curse où n est le nombre de joueurs dans la partie
 	 *  
 	 */
 	public Game(String[] playerNames, List<CardList> kingdomStacks) {
 
 		this.supplyStacks = new ArrayList<>();
 		this.trashedCards = new CardList();
-		for(int i = 0; i < kingdomStacks.size(); i++) {
-				this.supplyStacks.add(kingdomStacks.get(i));
+		
+		this.supplyStacks.addAll(kingdomStacks);
+		
+
+		CardList copperStack = new CardList();
+		CardList silverStack = new CardList();
+		CardList goldStack = new CardList();
+
+		CardList estateStack = new CardList();
+		CardList duchyStack = new CardList();
+		CardList provinceStack = new CardList();
+
+		CardList curseStack = new CardList();
+		//Ajout des cartes maledictions
+		for(int i = 0; i < 10*(playerNames.length - 1); i++) {
+			curseStack.add(new Curse());
 		}
-		//Defini combien d'extension vous avez implémenté.		
+		
+		//Ajout des cartes communes
+		for(int i = 0; i < 60; i++) {
+			copperStack.add(new Copper());
+			if(i < 30) {
+				goldStack.add(new Gold());
+			}
+			if(i < 40) {
+				silverStack.add(new Silver());
+			}	
+		}
+		
+		//Ajout des cartes Victoires
+		//Si 2 joueur
+		if(playerNames.length == 2) {
+			for(int i = 0; i < 8; i++) {
+				estateStack.add(new Estate());
+				duchyStack.add(new Duchy());
+				provinceStack.add(new Province());
+			}
+		}//Si 3 ou 4 joueurs
+		else if(playerNames.length > 2 && playerNames.length < 5) {
+			for(int i = 0; i < 12; i++) {
+				estateStack.add(new Estate());
+				duchyStack.add(new Duchy());
+				provinceStack.add(new Province());
+			}
+		}
+		
+		//Ajout de toutes les cartes au tas communs
+		this.supplyStacks.add(copperStack);
+		this.supplyStacks.add(silverStack);
+		this.supplyStacks.add(goldStack);
+		this.supplyStacks.add(curseStack);
+		this.supplyStacks.add(estateStack);
+		this.supplyStacks.add(duchyStack);
+		this.supplyStacks.add(provinceStack);
+
+		//Creation des joueurs
 		this.players = new Player[playerNames.length];
 		for(int i = 0; i < playerNames.length; i++){
 			this.players[i] = new Player(playerNames[i], this);
@@ -300,59 +356,6 @@ public class Game {
 			Player p = this.players[i];
 			System.out.println(String.format("%s: %d Points.\n%s\n", p.getName(), p.victoryPoints(), p.totalCards().toString()));
 		}
-	}
-
-
-	/*
-	 * Permet de choisir les extensions du jeu.
-	 * Pas totalement fini
-	 */
-	private CardList chooseGameType(int nbPlayer) {
-		List<Class<?>> nbType_de_partie = ClassFinder.find("extension");
-		//Si il y a une erreure, r�cupere seulement la classe commune.
-		
-		
-		System.out.println("\nQuelles types de carte voulez vous rajoutez au jeu :");
-		System.out.println("-1 Pour terminer et lancer la partie.");		
-
-		for(int i = 0; i < nbType_de_partie.size() ; i++){
-			//Affichez les différentes extensions
-			System.out.println(i + ": " + nbType_de_partie.get(i).getSimpleName());
-		}
-		int TypeOfGame = -2;
-		CardList chosenCard = new CardList();
-
-		Scanner sc = new Scanner(System.in);
-		try {
-			TypeOfGame = sc.nextInt();
-			
-		} catch (Exception e ) {
-			System.out.println("! Ce choix n'est pas valide !");
-
-			chosenCard.add(new Village("-2", -1));
-			return chosenCard;		}
-		if(TypeOfGame == -1) {
-			chosenCard.add(new Village("-1", -1));
-			return chosenCard;
-		}
-		else if(TypeOfGame >= nbType_de_partie.size()) {
-			CardList fakeList = new CardList();
-
-			chosenCard.add(new Village("-2", -1));
-			return chosenCard;
-		}
-		try {
-			chosenCard =  (CardList) nbType_de_partie.get(TypeOfGame).getDeclaredConstructor(int.class).newInstance(2);
-			System.out.println("Vous avez choisi le deck : " + nbType_de_partie.get(TypeOfGame).getSimpleName() );
-		} 
-		catch (InstantiationException | IllegalAccessException | IllegalArgumentException
-				| InvocationTargetException | NoSuchMethodException | SecurityException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-		
-		return chosenCard;
 	}
 
 	

@@ -595,12 +595,10 @@ public class Player {
 		
 		//On vide la main et on la met dans la defausse
 		while(!this.hand.isEmpty()){
-			System.out.println("On enleve un " + this.hand.get(0).getName() + " de hand de " + this.getName());
 			this.discard.add(this.hand.remove(0));
 		}
 		//On vide les cartes en jeu et on les met dans la defausse
 		while(!this.inPlay.isEmpty()){
-			System.out.println("On enleve un " + this.inPlay.get(0).getName() + " de inPlay de " + this.getName());
 			this.discard.add(this.inPlay.remove(0));
 		}
 		this.discard.shuffle();
@@ -642,7 +640,7 @@ public class Player {
 		//Fait joue une carte action au joueur tant qu'il le peut.
 		while(this.actions > 0){
 			//Si il veut jouer une carte
-			if((cardName = this.chooseCard("Choisis le nom d'une carte Action a jouer : ", this.getActionCards(), true)) != ""){	
+			if((cardName = this.chooseCard("Choisis le nom d'une carte Action a jouer (ENTRER pour passer) : ", this.getActionCards(), true)) != ""){	
 				this.playCard(cardName);
 				this.actions--;
 			}else break;
@@ -658,7 +656,7 @@ public class Player {
 		cardName = "";
 
 		while(this.buys > 0 && this.money > 0){
-			cardName = this.chooseCard("Choisis une carte a achete : ", this.getGame().availableSupplyCards(), true);
+			cardName = this.chooseCard("Choisis une carte a achete (ENTRER pour passer) : ", this.getGame().availableSupplyCards(), true);
 			if(!cardName.equals("")) {
 				
 				Card testBuyCard = null;
