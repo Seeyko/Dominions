@@ -37,6 +37,12 @@ public class Adventurer extends ActionCard {
 				System.out.println("C'est une carte tresor !");
 				carteTresor.add(cartePiocher);
 				System.out.println(carteTresor.size() + " carte Tresor trouve.");
+				try {
+				    Thread.sleep(1000);
+				 } catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}else carteADefaussez.add(cartePiocher);
 			try {
 			    Thread.sleep(1000);

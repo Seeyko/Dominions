@@ -166,7 +166,12 @@ public class Game {
 	 * joueurs, ou -1 si le joueur n'est pas dans le tableau.
 	 */
 	private int indexOfPlayer(Player p) {
-		return this.currentPlayerIndex;
+		for(int i = 0; i < this.players.length; i++){
+			if(p.equals(players[i])){
+				return i;
+			}
+		}
+		return -1;
 	}
 	
 	public CardList getTrash() {

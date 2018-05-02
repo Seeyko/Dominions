@@ -48,6 +48,8 @@ public class Player {
 	 */
 	private CardList hand;
 	
+	
+
 	/**
 	 * Liste des cartes dans la défausse du joueur
 	 */
@@ -670,5 +672,53 @@ public class Player {
 			} else break;		
 		}
 		this.endTurn();  
+	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Player other = (Player) obj;
+		if (actions != other.actions)
+			return false;
+		if (buys != other.buys)
+			return false;
+		if (discard == null) {
+			if (other.discard != null)
+				return false;
+		} else if (!discard.equals(other.discard))
+			return false;
+		if (draw == null) {
+			if (other.draw != null)
+				return false;
+		} else if (!draw.equals(other.draw))
+			return false;
+		if (game == null) {
+			if (other.game != null)
+				return false;
+		} else if (!game.equals(other.game))
+			return false;
+		if (hand == null) {
+			if (other.hand != null)
+				return false;
+		} else if (!hand.equals(other.hand))
+			return false;
+		if (inPlay == null) {
+			if (other.inPlay != null)
+				return false;
+		} else if (!inPlay.equals(other.inPlay))
+			return false;
+		if (money != other.money)
+			return false;
+		if (name == null) {
+			if (other.name != null)
+				return false;
+		} else if (!name.equals(other.name))
+			return false;
+		return true;
 	}
 }

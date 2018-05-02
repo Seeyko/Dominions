@@ -27,45 +27,49 @@ class Main {
 		List<CardList> kingdomStacks = new ArrayList<CardList>();
 		
 		//Creation des cartes royaumes
-		CardList adventurer = new CardList();
-		adventurer.add(new Adventurer("Adventurer", 6));
-		kingdomStacks.add(adventurer);
-		
+		CardList adventurer = new CardList();	
 		CardList bureaucrat = new CardList();
-		bureaucrat.add(new Bureaucrat("Bureaucrat", 5));
-		kingdomStacks.add(bureaucrat);
-
 		CardList cellar = new CardList();
-		cellar.add(new Cellar("Cellar", 5));		
-		kingdomStacks.add(cellar);
-
 		CardList chancellor = new CardList();
-		chancellor.add(new Chancellor("Chancellor", 6));		
-		kingdomStacks.add(chancellor);
-		
 		CardList chapel = new CardList();
-		chapel.add(new Chapel("Chapel", 4));		
-		kingdomStacks.add(chapel);
-		
 		CardList councilRoom = new CardList();
-		councilRoom.add(new CouncilRoom("CouncilRoom", 3));		
-		kingdomStacks.add(councilRoom);
-		
 		CardList feast = new CardList();
-		feast.add(new Feast("Feast", 2));		
-		kingdomStacks.add(feast);
-		
 		CardList festival = new CardList();
-		festival.add(new Festival("Festival", 3));		
-		kingdomStacks.add(festival);
-		
 		CardList gardens = new CardList();
-		gardens.add(new Gardens("Gardens", 3));		
-		kingdomStacks.add(gardens);
-		
 		CardList laboratory = new CardList();
-		laboratory.add(new Laboratory("Laboratory", 6));		
-		kingdomStacks.add(laboratory);
+
+		for(int i = 0; i < 10; i++){
+			adventurer.add(new Adventurer("Adventurer", 6));
+			kingdomStacks.add(adventurer);
+			
+			bureaucrat.add(new Bureaucrat("Bureaucrat", 5));
+			kingdomStacks.add(bureaucrat);
+
+			cellar.add(new Cellar("Cellar", 5));		
+			kingdomStacks.add(cellar);
+
+			chancellor.add(new Chancellor("Chancellor", 6));		
+			kingdomStacks.add(chancellor);
+			
+			chapel.add(new Chapel("Chapel", 4));		
+			kingdomStacks.add(chapel);
+			
+			councilRoom.add(new CouncilRoom("CouncilRoom", 3));		
+			kingdomStacks.add(councilRoom);
+			
+			feast.add(new Feast("Feast", 2));		
+			kingdomStacks.add(feast);
+			
+			festival.add(new Festival("Festival", 3));		
+			kingdomStacks.add(festival);
+			
+			gardens.add(new Gardens("Gardens", 3));		
+			kingdomStacks.add(gardens);
+			
+			laboratory.add(new Laboratory("Laboratory", 6));		
+			kingdomStacks.add(laboratory);
+
+		}
 		
 		 //Instancie et exécute une partie
 		Game g = new Game(playerNames, kingdomStacks);
