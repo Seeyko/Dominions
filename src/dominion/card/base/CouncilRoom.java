@@ -27,6 +27,9 @@ public class CouncilRoom extends ActionCard {
 		}
 		p.incrementBuys(1);
 		for(int j = 0; j < p.otherPlayers().size(); j++) {
+			
+			p.getGame().pause(500, (p.otherPlayers().get(j).getName() + " pioche une carte..."));
+			
 			p.otherPlayers().get(j).drawCard_AndAddInHand();
 		}
 	}

@@ -40,37 +40,37 @@ class Main {
 
 		for(int i = 0; i < 10; i++){
 			adventurer.add(new Adventurer("Adventurer", 6));
-			kingdomStacks.add(adventurer);
 			
 			bureaucrat.add(new Bureaucrat("Bureaucrat", 5));
-			kingdomStacks.add(bureaucrat);
 
 			cellar.add(new Cellar("Cellar", 5));		
-			kingdomStacks.add(cellar);
 
-			chancellor.add(new Chancellor("Chancellor", 6));		
-			kingdomStacks.add(chancellor);
+			chancellor.add(new Chancellor("Chancellor", 1));		
 			
 			chapel.add(new Chapel("Chapel", 4));		
-			kingdomStacks.add(chapel);
 			
 			councilRoom.add(new CouncilRoom("CouncilRoom", 3));		
-			kingdomStacks.add(councilRoom);
 			
 			feast.add(new Feast("Feast", 2));		
-			kingdomStacks.add(feast);
 			
 			festival.add(new Festival("Festival", 3));		
-			kingdomStacks.add(festival);
 			
 			gardens.add(new Gardens("Gardens", 3));		
-			kingdomStacks.add(gardens);
 			
 			laboratory.add(new Laboratory("Laboratory", 6));		
-			kingdomStacks.add(laboratory);
 
 		}
-		
+		kingdomStacks.add(adventurer);
+		kingdomStacks.add(bureaucrat);
+		kingdomStacks.add(cellar);
+		kingdomStacks.add(chancellor);
+		kingdomStacks.add(chapel);
+		kingdomStacks.add(councilRoom);
+		kingdomStacks.add(feast);
+		kingdomStacks.add(festival);
+		kingdomStacks.add(gardens);
+		kingdomStacks.add(laboratory);
+
 		 //Instancie et exécute une partie
 		Game g = new Game(playerNames, kingdomStacks);
 		 g.run();

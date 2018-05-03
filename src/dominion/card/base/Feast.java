@@ -29,6 +29,7 @@ public class Feast extends ActionCard {
 			curList = p.getGame().getCardsByCost(i);
 			cartesAChoisir.addAll(curList);
 		}
+		
 		p.gain(p.chooseCard("Choisissez une carte parmis celles-ci : ", cartesAChoisir, true));
 	}
 }

@@ -20,20 +20,21 @@ public class Chancellor extends ActionCard {
 	@Override
 	public void play(Player p) {
 		p.incrementMoney(2);
-		int veutDefaussez = -1;
-		while(veutDefaussez != 1 && veutDefaussez != 0) {
-			System.out.println("Voules vous defaussez tout votre deck et finir votre tour ? (1 = Oui, 0 = Non)");
-			try {
-				Scanner sc = new Scanner(System.in);
-				veutDefaussez = sc.nextInt();
-			} catch (Exception e) {
-				continue;
-			}
-		}
-		if(veutDefaussez == 1) {
+		String veutDefaussez;
+		
+		veutDefaussez = p.choose("Voulez vous defaussez tout votre deck ?",new ArrayList<String>(Arrays.asList("Oui", "Non")), false);
+		
+		if(veutDefaussez.equalsIgnoreCase("Oui")){
+			
+			/*
+			 * Animation pour le defaussement du deck.
+			 */
+			p.getGame().pause(1000,"Defaussement du deck", ".", ".", ".");
+			
 			while(p.getDraw().size() > 0) {
 				p.gain(p.getDraw().remove(0));
 			}
-		}else return;
+		}
+		
 	}
 }

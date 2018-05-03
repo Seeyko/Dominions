@@ -25,6 +25,8 @@ public class Militia extends AttackCard {
 			adversaire  = p.otherPlayers().get(i);
 			if(!PlayerHasMoatInHand(adversaire)){
 				while(adversaire.getHand().size() > 3) {
+					
+					p.getGame().pause(500, adversaire.getName() + " defausse une carte", ".", ".");
 					adversaire.gain(adversaire.getHand().remove(0));
 				}
 			}

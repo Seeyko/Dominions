@@ -19,13 +19,19 @@ public class Chapel extends ActionCard {
 	public void play(Player p) {
 		String cardName = "poupipoupipoupidou";
 		int nbCarteAJetez = 0;
-		while(cardName != "" && nbCarteAJetez < 4 && p.getHand().size() > 0) {
-			cardName = p.chooseCard("Il vous reste " + (4 - nbCarteAJetez) + " carte a defausser.\nChoississez une carte a defausser", p.cardsInHand(), true);
+		while(!cardName.equalsIgnoreCase("") && nbCarteAJetez < 4 && p.getHand().size() > 0) {
+			cardName = p.chooseCard("Il vous reste " + (4 - nbCarteAJetez) + " carte a defausser.\n>>>Choississez une carte a defausser (ENTRER POUR PASSER)", p.cardsInHand(), true);
 			try{
+				
+				p.getGame().pause(1000, "Ecartement de la carte ");
+				
+				//Ecartement de la carte
 				p.getGame().getTrash().add(p.getHand().remove(cardName));
 				nbCarteAJetez++;
+
+				p.getGame().pause(1000, "Carte " + cardName + " ecarter");				
 			} catch (Exception e) {
-				System.out.println(p.getHand().getCard(cardName));
+				System.out.println("Erreur ecartement de la carte " + p.getHand().getCard(cardName));
 			}
 		}
 	}

@@ -26,6 +26,10 @@ public class Cellar extends ActionCard {
 			cardName = p.chooseCard("Choississez une carte a defausser", p.cardsInHand(), true);
 			try{
 				if(!cardName.equals("")) {
+					
+					//Animation
+					p.getGame().pause(500, "Defaussement de la carte", ".", ".", ".");
+					
 					p.gain(p.getHand().remove(cardName));
 					p.drawCard_AndAddInHand();
 				}

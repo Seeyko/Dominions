@@ -523,6 +523,8 @@ public class Player {
 				if (choiceSet.contains(input) || (canPass && input.equals(""))){
 					// si une réponse valide est obtenue, elle est renvoyée
 					return input;
+				}else {
+					System.out.println("\n>>> Saisie incorrecte, veuillez choisir parmis les options !");
 				}
 			}
 		}

@@ -1,6 +1,7 @@
 package dominion;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import dominion.card.Card;
 import dominion.card.CardList;
@@ -360,6 +361,22 @@ public class Game {
 		for (int i = 0; i < this.players.length; i++) {
 			Player p = this.players[i];
 			System.out.println(String.format("%s: %d Points.\n%s\n", p.getName(), p.victoryPoints(), p.totalCards().toString()));
+		}
+	}
+	
+	public void pause(int tps_pause, String... args){
+		
+		
+		for(String arg : args){
+			
+			System.out.println(" >> " + arg);
+			
+			try {
+				Thread.sleep(tps_pause);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 	}
 

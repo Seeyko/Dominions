@@ -23,33 +23,22 @@ public class Adventurer extends ActionCard {
 		Card cartePiocher;
 		
 		while((cartePiocher = p.drawCard()) != null && carteTresor.size() < 2){
-			System.out.println("Retourne une carte du deck...");
 			
-			try {
-			    Thread.sleep(1000);
-			 } catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			p.getGame().pause(1000);
+			
 			System.out.println("Carte retourne : " + cartePiocher.getName());
 			
+			//Test si la carte piocher et de type tresor
 			if(cartePiocher.getTypes().contains(CardType.Treasure)) {
 				System.out.println("C'est une carte tresor !");
 				carteTresor.add(cartePiocher);
-				System.out.println(carteTresor.size() + " carte Tresor trouve.");
-				try {
-				    Thread.sleep(1000);
-				 } catch (InterruptedException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+				
+				p.getGame().pause(1000, (carteTresor.size() + " carte Tresor trouve."));
+				
 			}else carteADefaussez.add(cartePiocher);
-			try {
-			    Thread.sleep(1000);
-			 } catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+
+			p.getGame().pause(1000);
+
 		}
 		
 		p.getDiscard().addAll(carteADefaussez);

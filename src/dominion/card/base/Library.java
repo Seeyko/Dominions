@@ -20,17 +20,21 @@ public class Library extends ActionCard {
 	public void play(Player p) {
 		Card cartePioche;
 		CardList carteDeCote = new CardList();
-		int Oui_Non = 0;
+		String veutMettreDeCote;
 		while(p.getHand().size() < 7) {
 			cartePioche = p.drawCard_AndAddInHand();
 
 			if(cartePioche.getTypes().contains(CardType.Action)) {
+				
 				System.out.println("Vous venez de piochez une carte action : " + cartePioche.getName());
-				System.out.println("Voulez vous la mettre de cote ? (1 = Oui, 0 = Non");
-				Scanner sc = new Scanner(System.in);
-				Oui_Non = sc.nextInt();
-				if(Oui_Non == 1) {
+				
+				veutMettreDeCote = p.choose("Voulez vous la mettre de cote ?", new ArrayList<String>(Arrays.asList("Oui", "Non")), false);
+				
+				if(veutMettreDeCote.equalsIgnoreCase("Oui")) {
+					
 					carteDeCote.add(cartePioche);
+					
+					p.getGame().pause(500, "Carte" + cartePioche + " ajoutez a la defausse.");
 				}
 			}
 		}

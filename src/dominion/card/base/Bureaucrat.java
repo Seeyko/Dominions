@@ -26,13 +26,10 @@ public class Bureaucrat extends AttackCard {
 			adversaire = p.otherPlayers().get(i);
 			
 			if(!PlayerHasMoatInHand(adversaire)){
-				System.out.println("Recherche de carte Tresor dans la main de " + adversaire.getName() + "...");
-				try {
-					Thread.sleep(1000);
-				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+				
+				//Animation
+				p.getGame().pause(1000, ("Recherche de carte Tresor dans la main de " + adversaire.getName()) ,"." , "." , ".");
+				
 				if(adversaire.getVictoryCards().size() != 0) {
 					
 					carteARetirez = adversaire.getVictoryCards().get(0);
@@ -41,14 +38,15 @@ public class Bureaucrat extends AttackCard {
 						System.out.println("carte trouve : " + carteARetirez.getName() + " on la retire et la place sur le deck...");
 					}
 					adversaire.gain(carteARetirez);
-					try {
-					    Thread.sleep(1000);
-					 } catch (InterruptedException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
+					
+					
+					p.getGame().pause(1000);
+					
 				} else {
 					System.out.println(adversaire.getName() + " n'as pas de carte tresor en main, voila sa main : " + adversaire.getHand());
+					
+					p.getGame().pause(1000);
+
 				}
 			}
 		}
