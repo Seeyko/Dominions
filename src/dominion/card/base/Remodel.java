@@ -5,10 +5,10 @@ import dominion.*;
 import dominion.card.*;
 
 /**
- * Carte Rénovation (Remodel)
+ * Carte Renovation (Remodel)
  * 
- * Écartez une carte de votre main.
- * Recevez une carte coûtant jusqu'à 2 Pièces de plus que la carte écartée.
+ * Eartez une carte de votre main.
+ * Recevez une carte coûtant jusqu'a� 2 Pieces de plus que la carte ecartee.
  */
 public class Remodel extends ActionCard {
 
@@ -24,9 +24,8 @@ public class Remodel extends ActionCard {
 		Card carteGagne;
 		int randomChoisir;
 		if(p.getHand().size() > 0){
-			int randomEcartement = (int) (Math.random() * (p.getHand().size()-1));
-		
-			Card carteEcarte = p.getHand().remove(randomEcartement);
+			
+			Card carteEcarte = p.getHand().remove(p.chooseCard("Choisissez une carte a ecarter", p.getHand(), false));
 			int cost = carteEcarte.getCost();
 			
 			for (int h = cost ; h < cost+2; h++) {
@@ -34,13 +33,14 @@ public class Remodel extends ActionCard {
 				cartesAChoisir.addAll(curList);
 			
 			}
-			//On choisit une carte au hasard parmit @carteAChoisir
+			//On choisit une carte au hasard parmit ecarteAChoisir
 			randomChoisir = (int) (Math.random() * (cartesAChoisir.size() -1));
 			carteGagne = cartesAChoisir.get(randomChoisir);
 			p.getHand().add(carteGagne);
 			p.getGame().removeFromSupply(carteGagne.getName());
-			System.out.println("Vous avez recu " + carteGagne.getName());
-		}else System.out.println("Votre main est vide on ne peut rien faire.");
+			
+			p.getGame().pause(1000, "Vous avez recu " + carteGagne.getName());
+		}else p.getGame().pause(1000, "Votre main est vide on ne peut rien faire.");
 						
 	}
 }

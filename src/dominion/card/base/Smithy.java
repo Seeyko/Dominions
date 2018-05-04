@@ -18,6 +18,7 @@ public class Smithy extends ActionCard {
 
 	@Override
 	public void play(Player p) {
+		p.getGame().pause(1000, "Tu pioche trois cartes", ".", ".", ".");
 		p.drawCard_AndAddInHand();
 		p.drawCard_AndAddInHand();
 		p.drawCard_AndAddInHand();

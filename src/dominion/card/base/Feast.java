@@ -7,8 +7,8 @@ import dominion.card.*;
 /**
  * Carte Festin (Feast)
  * 
- * Écartez cette carte.
- * Choisissez une carte coûtant jusqu'à 5 Pièces.
+ * Ecartez cette carte.
+ * Choisissez une carte coutant jusqu'a� 5 Pieces.
  */
 public class Feast extends ActionCard {
 
@@ -24,6 +24,7 @@ public class Feast extends ActionCard {
 		CardList cartesAChoisir = new CardList();
 				
 		p.getGame().getTrash().add(p.getInPlay().remove(this.getName()));
+		
 		
 		for (int i = 0 ; i < 5; i++) {
 			curList = p.getGame().getCardsByCost(i);

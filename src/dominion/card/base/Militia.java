@@ -7,8 +7,8 @@ import dominion.card.*;
 /**
  * Carte Milice (Militia)
  * 
- * 2 Pièces.
- * Tous vos adversaires défaussent leurs cartes de façon à n'avoir que 3 cartes en main.
+ * 2 Pieces.
+ * Tous vos adversaires defaussent leurs cartes de fa�on a n'avoir que 3 cartes en main.
  */
 public class Militia extends AttackCard {
 

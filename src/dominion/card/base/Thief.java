@@ -1,8 +1,13 @@
 package dominion.card.base;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Scanner;
 
-import dominion.*;
-import dominion.card.*;
+import dominion.Player;
+import dominion.card.AttackCard;
+import dominion.card.Card;
+import dominion.card.CardList;
+import dominion.card.CardType;
 
 /**
  * Carte Voleur (Thief)
@@ -37,10 +42,9 @@ public class Thief extends AttackCard {
 				System.out.println("Joueur : " + adversaire.getName() + " a les cartes : " + carte1 + " et " + carte2);
 				
 				if(carte1.getTypes().contains(CardType.Treasure) && carte2.getTypes().contains(CardType.Treasure)) {
-					System.out.println("Les deux cartes sont de type Tresor, ecarte en une : 1 ou 2");
+					carte_a_ecarter = Integer.parseInt(p.choose("Les deux cartes sont de type Tresor, ecarte en une", new ArrayList<String>(Arrays.asList("1", "2")), false));
 					
-					carte_a_ecarter = sc.nextInt();
-					autre_carte = 1 - carte_a_ecarter;
+					autre_carte = carte_a_ecarter - 1;
 					
 					carteEcartes.add(adversaire.getHand().remove(carte_a_ecarter));
 					adversaire.getDiscard().add(adversaire.getHand().remove(autre_carte));
@@ -48,8 +52,7 @@ public class Thief extends AttackCard {
 			}
 		}
 		carteARecevoir = p.chooseCard("Selectionnez une carte a recevoir parmis celle-ci : ", carteEcartes, false);
-		p.getHand().add(carteEcartes.remove(carteARecevoir));
-		p.gain(carteEcartes.get(0));
+		p.gain(carteEcartes.remove(carteARecevoir));
 		
 		
 	}

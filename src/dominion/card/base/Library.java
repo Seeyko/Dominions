@@ -26,7 +26,7 @@ public class Library extends ActionCard {
 
 			if(cartePioche.getTypes().contains(CardType.Action)) {
 				
-				System.out.println("Vous venez de piochez une carte action : " + cartePioche.getName());
+				p.getGame().pause(1000, "Vous venez de piochez une carte action : " + cartePioche.getName());
 				
 				veutMettreDeCote = p.choose("Voulez vous la mettre de cote ?", new ArrayList<String>(Arrays.asList("Oui", "Non")), false);
 				

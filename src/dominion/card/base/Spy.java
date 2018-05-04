@@ -26,22 +26,20 @@ public class Spy extends AttackCard {
 		
 		int random;
 		Player adversaire;
-		Scanner sc = new Scanner(System.in);
 		Card carteRetirer;
-		int def_dev;
+		String def_dev;
 		
 		for(int i = 0; i < p.getGame().numberOfPlayers(); i++) {
 			adversaire = p.getGame().getPlayer(i);
 			carteRetirer = adversaire.drawCard();
 			if(!PlayerHasMoatInHand(adversaire)){
 				System.out.println("Joueur : " + adversaire.getName() + " a la carte : " + carteRetirer.getName());
-				System.out.println("Voulez vous defaussez ou remplacez cette carte ? (0 = Defaussez, 1 = Remplacer)");
-				def_dev = sc.nextInt();
+				def_dev = p.choose("Voulez vous defaussez ou remplacez cette carte ?", new ArrayList<String>(Arrays.asList("Defausser", "Remplacer")), false);
 				
-				if(def_dev == 0) {
+				if(def_dev .equalsIgnoreCase("Defausser")) {
 					System.out.println("Carte defausse");
 					adversaire.gain(carteRetirer);
-				}else if(def_dev == 1) {
+				}else if(def_dev.equalsIgnoreCase("Remplacer")) {
 					System.out.println("Carte remplace");
 					//On remplace la carte retire par une carte du stack au hasard.
 					 random = (int) (Math.random() * (adversaire.getGame().availableSupplyCards().size()-1));

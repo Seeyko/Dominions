@@ -1,5 +1,7 @@
 package dominion.card.base;
-import java.util.Scanner;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 import dominion.Player;
 import dominion.card.ReactionCard;
@@ -24,11 +26,8 @@ public class Moat extends ReactionCard {
 	}
 	
 	public boolean devoileCarte(Player p){
-		int answer;
-		Scanner sc = new Scanner(System.in);
-		System.out.println(p.getName() + ", veut tu jouer ta carte Moat ? (1 = Oui, 0 = Non");
-		answer = sc.nextInt();
-		if(answer == 1) return true;
+		String answer = p.choose("Veut tu jouer ta carte Moat ?", new ArrayList<String>(Arrays.asList("Oui", "Non")), false);
+		if(answer.equalsIgnoreCase("Oui")) return true;
 		else return false;
 	}
 }
