@@ -12,6 +12,10 @@ import dominion.card.*;
  */
 public class Chancellor extends ActionCard {
 
+	public Chancellor() {
+		super("Chancellor", 3);
+	}
+	
 	public Chancellor(String name, int cost) {
 		super(name, cost);
 		// TODO Auto-generated constructor stub

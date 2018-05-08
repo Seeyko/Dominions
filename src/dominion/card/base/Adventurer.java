@@ -12,6 +12,9 @@ import dominion.card.*;
  */
 public class Adventurer extends ActionCard {
 
+	public Adventurer() {
+		super("Adventuer", 6);
+	}
 	public Adventurer(String name, int cost) {
 		super(name, cost);
 	}

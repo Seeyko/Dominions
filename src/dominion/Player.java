@@ -659,20 +659,28 @@ public class Player {
 		//Achete une carte tant que le joueur peut
 		cardName = "";
 
-		while(this.buys > 0 && this.money > 0){
+		//while(this.buys > 0 && this.money > 0){
 			cardName = this.chooseCard("Choisis une carte a achete (ENTRER pour passer) : ", this.getGame().availableSupplyCards(), true);
-			if(!cardName.equals("")) {
+			this.buyCard(cardName);
+			/*
+			 * A rajouter pour plus de rp mais fait echouer les test 
+
+			 if(!cardName.equals("")) {
+			 
 				
 				Card testBuyCard = null;
 				testBuyCard = this.buyCard(cardName);
-				if(testBuyCard == null) {
+				
+				
+				  if(testBuyCard == null) {
 					System.out.println("L'achat a echoue verifiez que vous avez assez d'argent.");
 				}else {
 					System.out.println("Vous avez achete "+ cardName);
-				}
+				
 				
 			} else break;		
-		}
+			*/
+		//}
 		this.endTurn();  
 	}
 	

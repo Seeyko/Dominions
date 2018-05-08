@@ -11,6 +11,10 @@ import dominion.card.*;
  */
 public class Gardens extends VictoryCard {
 
+	public Gardens() {
+		super("Gardens", 4);
+	}
+	
 	public Gardens(String name, int cost) {
 		super(name, cost);
 	}
@@ -24,7 +28,7 @@ public class Gardens extends VictoryCard {
 	public int victoryValue(Player p) {
 		int totalCard = p.totalCards().size();
 		
-		p.getGame().pause(1000, "Carte Jardin !", "\n>> Nous comptabilisons combien de carte vous possédez", ".", ".", ".");
+		p.getGame().pause(1000, "Carte Jardin !", "Nous comptabilisons combien de carte vous (" + p.getName()+ ") possédez", ".", ".", ".");
 		p.getGame().pause(1000, "Vous possèdez " + totalCard);
 		p.getGame().pause(1000, "Vous remportez donc " + totalCard%10 + " points");
 		return totalCard%10;

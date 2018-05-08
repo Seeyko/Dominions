@@ -13,6 +13,10 @@ import dominion.card.*;
  */
 public class Festival extends ActionCard {
 
+	public Festival() {
+		super("Festival", 5);
+	}
+	
 	public Festival(String name, int cost) {
 		super(name, cost);
 		// TODO Auto-generated constructor stub

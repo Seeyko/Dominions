@@ -11,6 +11,10 @@ import dominion.card.*;
  */
 public class Chapel extends ActionCard {
 
+	public Chapel() {
+		super("Chapel", 2);
+	}
+	
 	public Chapel(String name, int cost) {
 		super(name, cost);
 	}

@@ -12,9 +12,13 @@ import dominion.card.*;
  */
 public class Village extends ActionCard {
 
+	public Village() {
+		super("Village", 3);
+		// TODO Auto-generated constructor stub
+	}
+	
 	public Village(String name, int cost) {
 		super(name, cost);
-		// TODO Auto-generated constructor stub
 	}
 	
 	@Override

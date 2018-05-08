@@ -12,6 +12,10 @@ import dominion.card.*;
  */
 public class Bureaucrat extends AttackCard {
 
+	public Bureaucrat() {
+		super("Bureaucrat", 4);
+	}
+	
 	public Bureaucrat(String name, int cost) {
 		super(name, cost);
 		// TODO Auto-generated constructor stub

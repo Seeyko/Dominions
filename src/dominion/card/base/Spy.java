@@ -14,6 +14,10 @@ import dominion.card.*;
  */
 public class Spy extends AttackCard {
 
+	public Spy() {
+		super("Spy", 4);
+	}
+	
 	public Spy(String name, int cost) {
 		super(name, cost);
 		// TODO Auto-generated constructor stub

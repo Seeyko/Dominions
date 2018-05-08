@@ -18,6 +18,10 @@ import dominion.card.CardType;
  */
 public class Thief extends AttackCard {
 
+	public Thief() {
+		super("Thief", 4);
+	}
+	
 	public Thief(String name, int cost) {
 		super(name, cost);
 		// TODO Auto-generated constructor stub

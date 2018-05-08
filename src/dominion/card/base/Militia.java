@@ -12,6 +12,10 @@ import dominion.card.*;
  */
 public class Militia extends AttackCard {
 
+	public Militia() {
+		super("Militia", 4);
+	}
+	
 	public Militia(String name, int cost) {
 		super(name, cost);
 		// TODO Auto-generated constructor stub

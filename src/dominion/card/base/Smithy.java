@@ -11,6 +11,10 @@ import dominion.card.*;
  */
 public class Smithy extends ActionCard {
 
+	public Smithy() {
+		super("Smithy", 4);
+	}
+	
 	public Smithy(String name, int cost) {
 		super(name, cost);
 		// TODO Auto-generated constructor stub

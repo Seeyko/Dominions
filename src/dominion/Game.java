@@ -1,7 +1,7 @@
 package dominion;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
+import java.util.Scanner;
 
 import dominion.card.Card;
 import dominion.card.CardList;
@@ -26,6 +26,12 @@ public class Game {
 	/**
 	 * Index du joueur dont c'est actuellement le tour
 	 */
+	/**
+	 * Scanner permettant de lire les entrées au clavier
+	 */
+	
+	private Scanner scanner;
+	
 	private int currentPlayerIndex;
 	
 	/**
@@ -62,8 +68,6 @@ public class Game {
 
 		this.supplyStacks = new ArrayList<>();
 		this.trashedCards = new CardList();
-		
-		this.supplyStacks.addAll(kingdomStacks);
 		
 
 		CardList copperStack = new CardList();
@@ -116,6 +120,9 @@ public class Game {
 		this.supplyStacks.add(estateStack);
 		this.supplyStacks.add(duchyStack);
 		this.supplyStacks.add(provinceStack);
+		for(int i = 0; i < kingdomStacks.size(); i++) {
+			this.supplyStacks.add(kingdomStacks.get(i));
+		}
 
 		//Creation des joueurs
 		this.players = new Player[playerNames.length];
@@ -362,6 +369,20 @@ public class Game {
 			Player p = this.players[i];
 			System.out.println(String.format("%s: %d Points.\n%s\n", p.getName(), p.victoryPoints(), p.totalCards().toString()));
 		}
+	}
+	
+	/**
+	* Lit une ligne de l'entrée standard
+	* 
+	* C'est cette méthode qui doit être appelée à chaque fois qu'on veut lire
+	* l'entrée clavier de l'utilisateur (par exemple dans Player.choose), ce
+	* qui permet de n'avoir qu'un seul Scanner pour tout le programme
+	* 
+	* @return une chaîne de caractères correspondant à la ligne suivante de
+	* l'entrée standard (sans le retour à la ligne final)
+	*/
+	public String readLine() {
+		return this.scanner.nextLine();
 	}
 	
 	public void pause(int tps_pause, String... args){

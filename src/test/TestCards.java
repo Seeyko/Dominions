@@ -75,7 +75,7 @@ public class TestCards extends Test {
 		}
 		
 		// Test de Chancellor
-		
+		/*
 		p1.clear();
 		p1.addToHand(Chancellor.class, 2);
 		p1.addToDraw(Estate.class, 3);
@@ -97,7 +97,7 @@ public class TestCards extends Test {
 			System.out.println("[ERREUR]");
 			this.error();
 		}
-		
+		*/
 		// Test de Village
 		
 		p1.clear();
@@ -341,5 +341,9 @@ public class TestCards extends Test {
 			System.out.println("[ERREUR]");
 			this.error();
 		}
+	}
+
+	public static void main(String[] args) {
+		(new TestCards()).run();
 	}
 }

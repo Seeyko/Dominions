@@ -178,7 +178,7 @@ public class TestMinimalGame extends Test {
 		try {
 		    g_p.setInput("Silver\n");
 		    PrintStream outs = System.out;
-		    System.setOut(Test.nullOut);
+		    //System.setOut(Test.nullOut);
 		    p_p.clear();
 		    p_p.player.startTurn();		    
 		    p_p.addToHand(Copper.class, 3);
@@ -215,7 +215,7 @@ public class TestMinimalGame extends Test {
 		try {
 		    g_p.setInput("Gold\n\n");
 		    PrintStream outs = System.out;
-		    System.setOut(Test.nullOut);
+		  //  System.setOut(Test.nullOut);
 		    p_p.clear();
 		    p_p.player.startTurn();		    
 		    p_p.addToHand(Copper.class, 3);

@@ -14,6 +14,10 @@ import dominion.card.ReactionCard;
  */
 public class Moat extends ReactionCard {
 
+	public Moat() {
+		super("Moat", 2);
+	}
+	
 	public Moat(String name, int cost) {
 		super(name, cost);
 		// TODO Auto-generated constructor stub

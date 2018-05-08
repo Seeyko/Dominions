@@ -12,6 +12,10 @@ import dominion.card.*;
  */
 public class ThroneRoom extends ActionCard {
 
+	public ThroneRoom() {
+		super("ThroneRoom", 4);
+	}
+	
 	public ThroneRoom(String name, int cost) {
 		super(name, cost);
 	}

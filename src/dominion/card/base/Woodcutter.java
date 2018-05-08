@@ -12,6 +12,10 @@ import dominion.card.*;
  */
 public class Woodcutter extends ActionCard {
 
+	public Woodcutter() {
+		super("Woodcutter", 3);
+	}
+	
 	public Woodcutter(String name, int cost) {
 		super(name, cost);
 		// TODO Auto-generated constructor stub

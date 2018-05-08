@@ -39,25 +39,25 @@ class Main {
 		CardList laboratory = new CardList();
 
 		for(int i = 0; i < 10; i++){
-			adventurer.add(new Adventurer("Adventurer", 6));
+			adventurer.add(new Adventurer());
 			
-			bureaucrat.add(new Bureaucrat("Bureaucrat", 5));
+			bureaucrat.add(new Bureaucrat());
 
-			cellar.add(new Cellar("Cellar", 5));		
+			cellar.add(new Cellar());		
 
-			chancellor.add(new Chancellor("Chancellor", 1));		
+			chancellor.add(new Chancellor());		
 			
-			chapel.add(new Chapel("Chapel", 4));		
+			chapel.add(new Chapel());		
 			
-			councilRoom.add(new CouncilRoom("CouncilRoom", 3));		
+			councilRoom.add(new CouncilRoom());		
 			
-			feast.add(new Feast("Feast", 2));		
+			feast.add(new Feast());		
 			
-			festival.add(new Festival("Festival", 3));		
+			festival.add(new Festival());		
 			
-			gardens.add(new Gardens("Gardens", 3));		
+			gardens.add(new Gardens());		
 			
-			laboratory.add(new Laboratory("Laboratory", 6));		
+			laboratory.add(new Laboratory());		
 
 		}
 		kingdomStacks.add(adventurer);
