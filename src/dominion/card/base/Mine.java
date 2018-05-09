@@ -23,6 +23,7 @@ public class Mine extends ActionCard {
 	@Override
 	public void play(Player p) {
 		Card carteTresor;
+		String carteGagner = "";
 		int random;
 		CardList curList = new CardList();
 		CardList cartesAChoisir = new CardList();
@@ -34,10 +35,10 @@ public class Mine extends ActionCard {
 					curList = p.getGame().getCardsByCost(h);
 					cartesAChoisir.addAll(curList);
 				}
-				//On choisit une carte au hasard parmit @carteAChoisir
-				random = (int) (Math.random() * (cartesAChoisir.size() -1));
-				System.out.println("Vous avez recuperer une carte " + p.getHand().add(cartesAChoisir.get(random)));
-			}
+				
+				carteGagner = p.chooseCard("Choose a card (ENTER TO PASS)", cartesAChoisir, true);
+				p.gain(p.getGame().removeFromSupply(carteGagner));;
+				p.getGame().pause(1000, "Vous avez recu " + carteGagner);			}
 		}
 	}
 }

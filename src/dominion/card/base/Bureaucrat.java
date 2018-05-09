@@ -1,8 +1,7 @@
 package dominion.card.base;
-import java.util.*;
-
-import dominion.*;
-import dominion.card.*;
+import dominion.Player;
+import dominion.card.AttackCard;
+import dominion.card.common.Silver;
 
 /**
  * Carte Bureaucrate (Bureaucrat)
@@ -23,9 +22,10 @@ public class Bureaucrat extends AttackCard {
 
 	@Override
 	public void play(Player p) {
-		Card carteARetirez;
+		String carteARetirez = "";
 		Player adversaire;
-		p.gain("Silver");
+		p.getDraw().add(new Silver());
+		
 		for(int i = 0; i < p.otherPlayers().size(); i++) {
 			adversaire = p.otherPlayers().get(i);
 			
@@ -33,26 +33,16 @@ public class Bureaucrat extends AttackCard {
 				
 				//Animation
 				p.getGame().pause(1000, ("Recherche de carte Tresor dans la main de " + adversaire.getName()) ,"." , "." , ".");
-				
-				if(adversaire.getVictoryCards().size() != 0) {
-					
-					carteARetirez = adversaire.getVictoryCards().get(0);
-					if(carteARetirez != null){
-						adversaire.getHand().remove(carteARetirez.getName());
-						System.out.println("carte trouve : " + carteARetirez.getName() + " on la retire et la place sur le deck...");
-					}
-					adversaire.gain(carteARetirez);
-					
-					
-					p.getGame().pause(1000);
-					
-				} else {
-					System.out.println(adversaire.getName() + " n'as pas de carte tresor en main, voila sa main : " + adversaire.getHand());
-					
-					p.getGame().pause(1000);
 
-				}
+				carteARetirez = adversaire.chooseCard("Choose a card victory card to show (ENTER IF YOU DON'T HAVE ANY)", adversaire.getVictoryCards(), true);
+								
+				if(!carteARetirez.equalsIgnoreCase("")){
+					adversaire.getDraw().add(adversaire.getHand().remove(carteARetirez));
+					p.getGame().pause(1000, adversaire.getName() + " n'as pas de carte tresor en main, voila sa main : " + adversaire.getHand());}
+				}else p.getGame().pause(1000, "carte trouve : " + carteARetirez + " on la retire et la place sur le deck...");
+
+				
 			}
 		}
-	}
+	
 }

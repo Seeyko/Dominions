@@ -24,17 +24,18 @@ public class Workshop extends ActionCard {
 	public void play(Player p) {
 		CardList curList = new CardList();
 		CardList cartesAChoisir = new CardList();
-		Card carteGagner;
+		String carteGagner;
 		for (int i = 0 ; i < 4; i++) {
 			
 			curList = p.getGame().getCardsByCost(i);
 			cartesAChoisir.addAll(curList);
 		}
+		
 		p.getGame().pause(1000, "Recherche de carte coutant jusqu'a 4 pieces", ".", ".", ".");
 		
-		int randomChoisir = (int) (Math.random() * (cartesAChoisir.size() -1));
-		carteGagner = cartesAChoisir.get(randomChoisir);
-		p.getHand().add(carteGagner);
-		System.out.println("Vous avez recu " + carteGagner.getName());
+		carteGagner = p.chooseCard("Choose a card (ENTER TO PASS)", cartesAChoisir, true);
+		p.gain(p.getGame().removeFromSupply(carteGagner));;
+		
+		p.getGame().pause(1000, "Vous avez recu " + carteGagner);
 	}
 }

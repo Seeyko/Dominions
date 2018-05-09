@@ -20,7 +20,7 @@ import dominion.card.common.Silver;
 public class Game {
 	
 	/**
-	 *  Variable définissant si on ajoute des pauses ou non pour rendre le jeu plus réaliste.
+	 *  Variable dï¿½finissant si on ajoute des pauses ou non pour rendre le jeu plus rï¿½aliste.
 	 */
 	private static boolean isRP = false;
 	/**
@@ -32,7 +32,7 @@ public class Game {
 	 * Index du joueur dont c'est actuellement le tour
 	 */
 	/**
-	 * Scanner permettant de lire les entrées au clavier
+	 * Scanner permettant de lire les entrï¿½es au clavier
 	 */
 	
 	private Scanner scanner;
@@ -71,6 +71,7 @@ public class Game {
 	 */
 	public Game(String[] playerNames, List<CardList> kingdomStacks) {
 				
+		this.scanner = new Scanner(System.in);
 		this.supplyStacks = new ArrayList<>();
 		this.trashedCards = new CardList();
 		
@@ -136,11 +137,13 @@ public class Game {
 	}
 	
 	/**
-	 * Constructor avec troisième paramètre.
+	 * Constructor avec troisiï¿½me paramï¿½tre.
 	 */
 	public Game(String[] playerNames, List<CardList> kingdomStacks, boolean rp) {
 
 		this.isRP = rp;
+		this.scanner = new Scanner(System.in);
+
 		this.supplyStacks = new ArrayList<>();
 		this.trashedCards = new CardList();
 		
@@ -446,14 +449,14 @@ public class Game {
 	}
 	
 	/**
-	* Lit une ligne de l'entrée standard
+	* Lit une ligne de l'entrï¿½e standard
 	* 
-	* C'est cette méthode qui doit être appelée à chaque fois qu'on veut lire
-	* l'entrée clavier de l'utilisateur (par exemple dans Player.choose), ce
+	* C'est cette mï¿½thode qui doit ï¿½tre appelï¿½e ï¿½ chaque fois qu'on veut lire
+	* l'entrï¿½e clavier de l'utilisateur (par exemple dans Player.choose), ce
 	* qui permet de n'avoir qu'un seul Scanner pour tout le programme
 	* 
-	* @return une chaîne de caractères correspondant à la ligne suivante de
-	* l'entrée standard (sans le retour à la ligne final)
+	* @return une chaï¿½ne de caractï¿½res correspondant ï¿½ la ligne suivante de
+	* l'entrï¿½e standard (sans le retour ï¿½ la ligne final)
 	*/
 	public String readLine() {
 		return this.scanner.nextLine();

@@ -26,9 +26,9 @@ public class Chancellor extends ActionCard {
 		p.incrementMoney(2);
 		String veutDefaussez;
 		
-		veutDefaussez = p.choose("Voulez vous defaussez tout votre deck ?",new ArrayList<String>(Arrays.asList("Oui", "Non")), false);
+		veutDefaussez = p.choose("Voulez vous defaussez tout votre deck ?",new ArrayList<String>(Arrays.asList("y", "n")), false);
 		
-		if(veutDefaussez.equalsIgnoreCase("Oui")){
+		if(veutDefaussez.equalsIgnoreCase("y")){
 			
 			/*
 			 * Animation pour le defaussement du deck.

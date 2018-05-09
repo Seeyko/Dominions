@@ -8,7 +8,7 @@ import dominion.card.*;
  * Carte Festin (Feast)
  * 
  * Ecartez cette carte.
- * Choisissez une carte coutant jusqu'a  5 Pieces.
+ * Choisissez une carte coutant jusqu'Ã  5 Pieces.
  */
 public class Feast extends ActionCard {
 
@@ -27,14 +27,18 @@ public class Feast extends ActionCard {
 		CardList curList = new CardList();
 		CardList cartesAChoisir = new CardList();
 				
+		String carteGagner = "";
+		
 		p.getGame().getTrash().add(p.getInPlay().remove(this.getName()));
 		
-		
-		for (int i = 0 ; i < 5; i++) {
+		for (int i = 1 ; i < 6; i++) {
 			curList = p.getGame().getCardsByCost(i);
 			cartesAChoisir.addAll(curList);
 		}
 		
-		p.gain(p.chooseCard("Choisissez une carte parmis celles-ci : ", cartesAChoisir, true));
+		carteGagner = p.chooseCard("Choose a card (ENTER TO PASS)", cartesAChoisir, true);
+		p.gain(p.getGame().removeFromSupply(carteGagner));
+		p.getGame().pause(1000, "Vous avez recu " + carteGagner);	
+		
 	}
 }

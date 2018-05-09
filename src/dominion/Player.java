@@ -251,7 +251,9 @@ public class Player {
 	
 	public Card drawCard_AndAddInHand(){
 		Card cartePioche = this.drawCard();
-		this.hand.add(cartePioche);
+		if(cartePioche != null) {
+			this.hand.add(cartePioche);
+		}
 		return cartePioche;
 	}
 	
@@ -505,13 +507,25 @@ public class Player {
 				System.out.print("\n");
 				// affiche l'instruction
 				System.out.println(">>> " + instruction);
-				System.out.print("> ");
+				System.out.print(">");
+				System.out.print(">> ");
+				for(int i = 0; i < choices.size(); i++) {
+					if(i != choices.size()-1) {
+						System.out.print(choices.get(i) + ", ");
+					}else System.out.print(choices.get(i) + "\n");
+					
+					if(i%10 == 0 && i != 0) {
+						System.out.print("\n");
+					}
+				}
 				// lit l'entrée de l'utilisateur au clavier
 				input = this.game.readLine();
 				if (choiceSet.contains(input) || (canPass && input.equals(""))){
 					// si une réponse valide est obtenue, elle est renvoyée
 					return input;
-				}
+				}else {
+					System.out.println("\n>>> INCORRECT INPUT TRY AGAIN PLEASEd");
+ 				}
 			}
 		}
 	}

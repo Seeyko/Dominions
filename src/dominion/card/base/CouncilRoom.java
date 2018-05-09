@@ -16,7 +16,7 @@ import dominion.card.*;
 public class CouncilRoom extends ActionCard {
 
 	public CouncilRoom() {
-		super("CouncilRoom", 5);
+		super("Council Room", 5);
 	}
 	
 	public CouncilRoom(String name, int cost) {
@@ -30,11 +30,10 @@ public class CouncilRoom extends ActionCard {
 			p.drawCard_AndAddInHand();
 		}
 		p.incrementBuys(1);
-		for(int j = 0; j < p.otherPlayers().size(); j++) {
-			
-			p.getGame().pause(500, (p.otherPlayers().get(j).getName() + " pioche une carte..."));
-			
-			p.otherPlayers().get(j).drawCard_AndAddInHand();
+
+		for(Player adv: p.otherPlayers()) {
+			p.getGame().pause(500, adv + " pioche une carte...");
+			adv.drawCard_AndAddInHand();
 		}
 	}
 	
