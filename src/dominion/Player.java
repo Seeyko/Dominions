@@ -493,7 +493,6 @@ public class Player {
 			// Un seul choix possible (renvoyer cet unique élément)
 			return choiceSet.iterator().next();
 		} else {
-			Scanner sc = new Scanner(System.in);
 			String input;
 			// Lit l'entrée de l'utilisateur jusqu'à obtenir un choix valide
 			while (true) {
@@ -507,24 +506,11 @@ public class Player {
 				// affiche l'instruction
 				System.out.println(">>> " + instruction);
 				System.out.print("> ");
-				System.out.print(">>> ");
-				for(int i = 0; i < choices.size(); i++) {
-					if(i != choices.size()-1) {
-						System.out.print(choices.get(i) + ", ");
-					} else 	System.out.print(choices.get(i) + "\n");
-
-					if(i%10 == 0 && i != 0) {
-						System.out.print("\n");
-					}
-				}
-
 				// lit l'entrée de l'utilisateur au clavier
-				input = sc.nextLine();
+				input = this.game.readLine();
 				if (choiceSet.contains(input) || (canPass && input.equals(""))){
 					// si une réponse valide est obtenue, elle est renvoyée
 					return input;
-				}else {
-					System.out.println("\n>>> Saisie incorrecte, veuillez choisir parmis les options !");
 				}
 			}
 		}
