@@ -5,14 +5,11 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.Set;
 
-import dominion.card.ActionCard;
 import dominion.card.Card;
 import dominion.card.CardList;
 import dominion.card.CardType;
-import dominion.card.TreasureCard;
-import dominion.card.VictoryCard;
-import dominion.card.base.Bureaucrat;
-import dominion.card.base.Moat;
+import dominion.card.common.Copper;
+import dominion.card.common.Estate;
 
 /**
  * Un joueur de Dominion
@@ -87,9 +84,9 @@ public class Player {
 		this.inPlay = new CardList();
 		for(int i = 0; i < 7; i++){
 			if(i < 3){
-				this.gain(this.getGame().removeFromSupply("Estate"));
+			this.gain(new Estate());
 			}
-			this.gain(this.getGame().removeFromSupply("Copper"));
+			this.gain(new Copper());
 		}
 		this.endTurn();
 	}
