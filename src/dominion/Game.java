@@ -111,7 +111,6 @@ public class Game {
 				provinceStack.add(new Province());
 			}
 		}
-		
 		//Ajout de toutes les cartes au tas communs
 		this.supplyStacks.add(copperStack);
 		this.supplyStacks.add(silverStack);

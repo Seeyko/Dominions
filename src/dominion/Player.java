@@ -168,7 +168,7 @@ public class Player {
 		for(int cardInHandIndex = 0; cardInHandIndex < this.hand.size(); cardInHandIndex++) {
 			inHand.add(this.hand.get(cardInHandIndex));
 		}
-		return this.hand;
+		return inHand;
 	}
 	
 	/**
@@ -237,12 +237,15 @@ public class Player {
 	 * @return la carte piochée, {@code null} si aucune carte disponible
 	 */
 	public Card drawCard() {
+
+		if(this.draw.isEmpty() && this.discard.isEmpty()) {
+			return null;
+		}
 		
 		if(this.draw.isEmpty()) {
 			this.discard.shuffle();
-			for(int i = 0; i < this.discard.size(); i++) {
-				if(this.draw.add(this.discard.remove(i)));
-			}
+				this.draw.addAll(this.discard);
+				this.discard.clear();
 			return this.draw.remove(0);
 		}else {
 			return this.draw.remove(0);
