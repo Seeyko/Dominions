@@ -18,6 +18,11 @@ import dominion.card.common.Silver;
  * Class reprÃ©sentant une partie de Dominion
  */
 public class Game {
+	
+	/**
+	 *  Variable définissant si on ajoute des pauses ou non pour rendre le jeu plus réaliste.
+	 */
+	private static boolean isRP = false;
 	/**
 	 * Tableau contenant les joueurs de la partie
 	 */
@@ -65,7 +70,77 @@ public class Game {
 	 *  
 	 */
 	public Game(String[] playerNames, List<CardList> kingdomStacks) {
+				
+		this.supplyStacks = new ArrayList<>();
+		this.trashedCards = new CardList();
+		
 
+		CardList copperStack = new CardList();
+		CardList silverStack = new CardList();
+		CardList goldStack = new CardList();
+
+		CardList estateStack = new CardList();
+		CardList duchyStack = new CardList();
+		CardList provinceStack = new CardList();
+
+		CardList curseStack = new CardList();
+		//Ajout des cartes maledictions
+		for(int i = 0; i < 10*(playerNames.length - 1); i++) {
+			curseStack.add(new Curse());
+		}
+		
+		//Ajout des cartes communes
+		for(int i = 0; i < 60; i++) {
+			copperStack.add(new Copper());
+			if(i < 30) {
+				goldStack.add(new Gold());
+			}
+			if(i < 40) {
+				silverStack.add(new Silver());
+			}	
+		}
+		
+		//Ajout des cartes Victoires
+		//Si 2 joueur
+		if(playerNames.length == 2) {
+			for(int i = 0; i < 8; i++) {
+				estateStack.add(new Estate());
+				duchyStack.add(new Duchy());
+				provinceStack.add(new Province());
+			}
+		}//Si 3 ou 4 joueurs
+		else if(playerNames.length > 2 && playerNames.length < 5) {
+			for(int i = 0; i < 12; i++) {
+				estateStack.add(new Estate());
+				duchyStack.add(new Duchy());
+				provinceStack.add(new Province());
+			}
+		}
+		//Ajout de toutes les cartes au tas communs
+		this.supplyStacks.add(copperStack);
+		this.supplyStacks.add(silverStack);
+		this.supplyStacks.add(goldStack);
+		this.supplyStacks.add(curseStack);
+		this.supplyStacks.add(estateStack);
+		this.supplyStacks.add(duchyStack);
+		this.supplyStacks.add(provinceStack);
+		for(int i = 0; i < kingdomStacks.size(); i++) {
+			this.supplyStacks.add(kingdomStacks.get(i));
+		}
+
+		//Creation des joueurs
+		this.players = new Player[playerNames.length];
+		for(int i = 0; i < playerNames.length; i++){
+			this.players[i] = new Player(playerNames[i], this);
+		}
+	}
+	
+	/**
+	 * Constructor avec troisième paramètre.
+	 */
+	public Game(String[] playerNames, List<CardList> kingdomStacks, boolean rp) {
+
+		this.isRP = rp;
 		this.supplyStacks = new ArrayList<>();
 		this.trashedCards = new CardList();
 		
@@ -386,16 +461,17 @@ public class Game {
 	
 	public void pause(int tps_pause, String... args){
 		
-		
-		for(String arg : args){
+		if(this.isRP) {
+			for(String arg : args){
 			
 			System.out.println(" >> " + arg);
 			
-			try {
-				Thread.sleep(tps_pause);
-			} catch (InterruptedException e) {
+				try {
+					Thread.sleep(tps_pause);
+				} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
-				e.printStackTrace();
+					e.printStackTrace();
+				}
 			}
 		}
 	}

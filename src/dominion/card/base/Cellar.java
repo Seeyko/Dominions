@@ -27,7 +27,7 @@ public class Cellar extends ActionCard {
 		p.incrementActions(1);
 		String cardName = "poupipoupipoupidou";
 		while(!cardName.equals("")) {
-			cardName = p.chooseCard("Choississez une carte a defausser", p.cardsInHand(), true);
+			cardName = p.chooseCard("Choississez une carte a defausser (ENTRER POUR PASSER) ", p.cardsInHand(), true);
 			try{
 				if(!cardName.equals("")) {
 					
