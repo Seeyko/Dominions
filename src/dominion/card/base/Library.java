@@ -26,19 +26,20 @@ public class Library extends ActionCard {
 		CardList carteDeCote = new CardList();
 		String veutMettreDeCote;
 		while(p.getHand().size() < 7) {
+			
 			cartePioche = p.drawCard_AndAddInHand();
 
 			if(cartePioche.getTypes().contains(CardType.Action)) {
 				
-				p.getGame().pause(1000, "Vous venez de piochez une carte action : " + cartePioche.getName());
+				p.getGame().pause(1000, "You have draw an action card : " + cartePioche.getName());
 				
-				veutMettreDeCote = p.choose("Voulez vous la mettre de cote ?", new ArrayList<String>(Arrays.asList("Oui", "Non")), false);
+				veutMettreDeCote = p.choose("Do you want to put it in the discard instead of your hand?", new ArrayList<String>(Arrays.asList("y", "n")), false);
 				
-				if(veutMettreDeCote.equalsIgnoreCase("Oui")) {
+				if(veutMettreDeCote.equalsIgnoreCase("y")) {
 					
-					carteDeCote.add(cartePioche);
+					carteDeCote.add(p.getHand().remove(cartePioche.getName()));
 					
-					p.getGame().pause(500, "Carte" + cartePioche + " ajoutez a la defausse.");
+					p.getGame().pause(500, cartePioche + " add to the discard");
 				}
 			}
 		}

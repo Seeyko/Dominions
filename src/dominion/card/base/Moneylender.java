@@ -13,7 +13,7 @@ import dominion.card.common.Copper;
 public class Moneylender extends ActionCard {
 
 	public Moneylender() {
-		super("Money Lender", 4);
+		super("Moneylender", 4);
 	}
 	
 	public Moneylender(String name, int cost) {

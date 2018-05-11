@@ -38,7 +38,7 @@ public class Feast extends ActionCard {
 		
 		carteGagner = p.chooseCard("Choose a card (ENTER TO PASS)", cartesAChoisir, true);
 		p.gain(p.getGame().removeFromSupply(carteGagner));
-		p.getGame().pause(1000, "Vous avez recu " + carteGagner);	
+		p.getGame().pause(1000, "You received a " + carteGagner);	
 		
 	}
 }

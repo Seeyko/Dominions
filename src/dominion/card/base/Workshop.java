@@ -31,11 +31,11 @@ public class Workshop extends ActionCard {
 			cartesAChoisir.addAll(curList);
 		}
 		
-		p.getGame().pause(1000, "Recherche de carte coutant jusqu'a 4 pieces", ".", ".", ".");
+		p.getGame().pause(1000, "Search for card with a cost of 4", ".", ".", ".");
 		
 		carteGagner = p.chooseCard("Choose a card (ENTER TO PASS)", cartesAChoisir, true);
 		p.gain(p.getGame().removeFromSupply(carteGagner));;
 		
-		p.getGame().pause(1000, "Vous avez recu " + carteGagner);
+		p.getGame().pause(1000, "You received " + carteGagner);
 	}
 }

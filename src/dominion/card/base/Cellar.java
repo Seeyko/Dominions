@@ -27,12 +27,12 @@ public class Cellar extends ActionCard {
 		p.incrementActions(1);
 		String cardName = "poupipoupipoupidou";
 		while(!cardName.equals("")) {
-			cardName = p.chooseCard("Choississez une carte a defausser (ENTRER POUR PASSER) ", p.cardsInHand(), true);
+			cardName = p.chooseCard("Discard a card (ENTER TO FINISH) ", p.cardsInHand(), true);
 			try{
 				if(!cardName.equals("")) {
 					
 					//Animation
-					p.getGame().pause(500, "Defaussement de la carte", ".", ".", ".");
+					p.getGame().pause(500, "Discarding card", ".", ".", ".");
 					
 					p.gain(p.getHand().remove(cardName));
 					p.drawCard_AndAddInHand();

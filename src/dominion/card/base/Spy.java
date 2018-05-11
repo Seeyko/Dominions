@@ -37,17 +37,15 @@ public class Spy extends AttackCard {
 			adversaire = p.getGame().getPlayer(i);
 			carteRetirer = adversaire.drawCard();
 			if(!PlayerHasMoatInHand(adversaire)){
-				System.out.println("Joueur : " + adversaire.getName() + " a la carte : " + carteRetirer.getName());
-				def_dev = p.choose("Voulez vous defaussez ou remplacez cette carte ?", new ArrayList<String>(Arrays.asList("Defausser", "Remplacer")), false);
+				p.getGame().pause(1000, "Player : " + adversaire.getName() + " has the card : " + carteRetirer.getName());
+				def_dev = p.choose("Discard (y) or put this card on the deck (n)?", new ArrayList<String>(Arrays.asList("y", "n")), false);
 				
-				if(def_dev .equalsIgnoreCase("Defausser")) {
-					System.out.println("Carte defausse");
+				if(def_dev .equalsIgnoreCase("y")) {
+					p.getGame().pause(500,"Discarding the card");
 					adversaire.gain(carteRetirer);
-				}else if(def_dev.equalsIgnoreCase("Remplacer")) {
-					System.out.println("Carte remplace");
-					//On remplace la carte retire par une carte du stack au hasard.
-					 random = (int) (Math.random() * (adversaire.getGame().availableSupplyCards().size()-1));
-					 adversaire.getDraw().add(adversaire.getGame().availableSupplyCards().remove(random));
+				}else if(def_dev.equalsIgnoreCase("n")) {
+					p.getGame().pause(500,"Putting the card on the deck");
+					adversaire.getDraw().add(carteRetirer);
 				}
 			}
 		}

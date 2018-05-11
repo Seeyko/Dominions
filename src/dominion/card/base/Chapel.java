@@ -24,18 +24,18 @@ public class Chapel extends ActionCard {
 		String cardName = "poupipoupipoupidou";
 		int nbCarteAJetez = 0;
 		while(!cardName.equalsIgnoreCase("") && nbCarteAJetez < 4 && p.getHand().size() > 0) {
-			cardName = p.chooseCard("Il vous reste " + (4 - nbCarteAJetez) + " carte a defausser.\n>>>Choississez une carte a defausser (ENTRER POUR PASSER)", p.cardsInHand(), true);
+			cardName = p.chooseCard((4 - nbCarteAJetez) + " card to discard.\n>>>Choose a card to discard (ENTER TO PASS)", p.cardsInHand(), true);
 			try{
 				
-				p.getGame().pause(1000, "Ecartement de la carte ");
+				p.getGame().pause(1000, "Discarding the card");
 				
 				//Ecartement de la carte
 				p.getGame().getTrash().add(p.getHand().remove(cardName));
 				nbCarteAJetez++;
 
-				p.getGame().pause(1000, "Carte " + cardName + " ecarter");				
+				p.getGame().pause(1000, "Card " + cardName + " discard");				
 			} catch (Exception e) {
-				System.out.println("Erreur ecartement de la carte " + p.getHand().getCard(cardName));
+				System.out.println("Error during the discard " + p.getHand().getCard(cardName));
 			}
 		}
 	}

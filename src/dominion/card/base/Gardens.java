@@ -28,9 +28,9 @@ public class Gardens extends VictoryCard {
 	public int victoryValue(Player p) {
 		int totalCard = p.totalCards().size();
 		
-		p.getGame().pause(1000, "Carte Jardin !", "Nous comptabilisons combien de carte vous (" + p.getName()+ ") poss�dez", ".", ".", ".");
-		p.getGame().pause(1000, "Vous possédez " + totalCard);
-		p.getGame().pause(1000, "Vous remportez donc " + totalCard%10 + " points");
+		p.getGame().pause(500, "Garden Card !", "Counting the number of " + p.getName()+ " cards", ".", ".", ".");
+		p.getGame().pause(1000, p.getName()+ " has " + totalCard + " cards");
+		p.getGame().pause(1000, "He earned " + totalCard/10 + " points");
 		return totalCard/10;
 	}
 }

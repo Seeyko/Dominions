@@ -5,6 +5,7 @@ import java.util.Scanner;
 
 import dominion.card.Card;
 import dominion.card.CardList;
+import dominion.card.CardType;
 import dominion.card.common.Copper;
 import dominion.card.common.Curse;
 import dominion.card.common.Duchy;
@@ -233,6 +234,19 @@ public class Game {
 		CardList cardsByCost = new CardList();
 		for(int i = 0; i < this.supplyStacks.size(); i++) {
 			if (this.supplyStacks.get(i).get(0).getCost() == k) {
+				cardsByCost.add(this.supplyStacks.get(i).get(0));
+			}
+		}
+		return cardsByCost;
+	}
+
+	public CardList getCardsByCostAndTypes(int k, CardType types) {
+		CardList cardsByCost = new CardList();
+		
+		Card cur;
+		for(int i = 0; i < this.supplyStacks.size(); i++) {
+			cur = this.supplyStacks.get(i).get(0);
+			if (cur.getCost() == k && cur.getTypes().contains(types)) {
 				cardsByCost.add(this.supplyStacks.get(i).get(0));
 			}
 		}
@@ -478,6 +492,7 @@ public class Game {
 			}
 		}
 	}
+
 
 	
 }

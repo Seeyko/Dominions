@@ -29,35 +29,78 @@ public class Thief extends AttackCard {
 
 	@Override
 	public void play(Player p) {
-		String carteARecevoir = "poupipoupipoupidou";
-		Player adversaire;
-		Card carte1, carte2;
-		int carte_a_ecarter;
-		int autre_carte;
-		CardList carteEcartes = new CardList();
-		Scanner sc = new Scanner(System.in);
+	
+		Player adv;
+		
+		Card firstCard;
+		Card secondCard;
+		
+		String card_to_trash = "";
+		String carteChoisi = "poupipoupipoupidou";
+
+		CardList revealCard = new CardList();
+		CardList trashedCard = new CardList();
+		CardList treasureCard = new CardList();
+
 		for(int i = 0; i < p.otherPlayers().size(); i++) {
+			adv = p.otherPlayers().get(i);
 			
-			adversaire = p.otherPlayers().get(i);
+			//On devoile les 2 premieres cartes du deck
+			firstCard = adv.drawCard();
+			secondCard = adv.drawCard();
 			
-			if(!PlayerHasMoatInHand(adversaire)){
-				carte1 = adversaire.getHand().get(0);
-				carte2 = adversaire.getHand().get(1);
-				System.out.println("Joueur : " + adversaire.getName() + " a les cartes : " + carte1 + " et " + carte2);
+			//adv a 0 cartes
+			if(firstCard == null && secondCard == null) {
+				p.getGame().pause(1000, adv.getName() + " didn't have any cards in his deck");
+			} 
+			
+			//adv a une carte
+			else if(firstCard != null && secondCard == null) {
+				p.getGame().pause(1000, adv.getName() + " have one card in his deck : " + firstCard.getName());
+			
+				//La carte devoile est ajouter au tas de cartes revélé.
+				revealCard.add(firstCard);
+
+				//Si c'est une carte tresor on l'écarte
+				if(firstCard.getTypes().contains(CardType.Treasure)) {
+					revealCard.remove(firstCard);
+					trashedCard.add(firstCard);
+				}
 				
-				if(carte1.getTypes().contains(CardType.Treasure) && carte2.getTypes().contains(CardType.Treasure)) {
-					carte_a_ecarter = Integer.parseInt(p.choose("Les deux cartes sont de type Tresor, ecarte en une", new ArrayList<String>(Arrays.asList("1", "2")), false));
-					
-					autre_carte = carte_a_ecarter - 1;
-					
-					carteEcartes.add(adversaire.getHand().remove(carte_a_ecarter));
-					adversaire.getDiscard().add(adversaire.getHand().remove(autre_carte));
+			//adv a 2 cartes ou plus
+			}else {
+				p.getGame().pause(1000, adv.getName() + " have those two card in his deck : " + firstCard.getName() + ", " + secondCard.getName());
+				
+				revealCard.add(firstCard);
+				revealCard.add(secondCard);
+				
+				//Si la carte est de type tresor l'ajoute a la pile des cartes tresor
+				if(firstCard.getTypes().contains(CardType.Treasure)) {
+					treasureCard.add(firstCard);
+				}
+				//Si la carte est de type tresor on l'ajoute a la pile des cartes tresor
+				if(secondCard.getTypes().contains(CardType.Treasure)) {
+					treasureCard.add(secondCard);
+				}
+				
+				//Si au moins une des deux cartes et de types tresor
+				if(!treasureCard.isEmpty()) {
+					//On en choisi une a ecarte
+					card_to_trash = p.chooseCard("Choose a card to trash ", treasureCard, false);
+					//On l'enleve du tas de carte tresor && du tas de carte revelé et on l'ajoute au tas de cartes écarté.
+					trashedCard.add(treasureCard.remove(card_to_trash));
+					revealCard.remove(card_to_trash);			
 				}
 			}
+			
+			adv.getDiscard().addAll(revealCard);			
+			revealCard.clear();
+			treasureCard.clear();
 		}
-		carteARecevoir = p.chooseCard("Selectionnez une carte a recevoir parmis celle-ci : ", carteEcartes, false);
-		p.gain(carteEcartes.remove(carteARecevoir));
 		
-		
+		while(!carteChoisi.equals("")) {
+			carteChoisi = p.chooseCard("Choose a card you want to gain : (ENTER TO FINISH)", trashedCard, true);
+			p.gain(trashedCard.remove(carteChoisi));
+		}
 	}
 }

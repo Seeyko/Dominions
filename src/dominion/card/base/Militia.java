@@ -8,7 +8,7 @@ import dominion.card.*;
  * Carte Milice (Militia)
  * 
  * 2 Pieces.
- * Tous vos adversaires defaussent leurs cartes de façon a n'avoir que 3 cartes en main.
+ * Tous vos adversaires defaussent leurs cartes de faï¿½on a n'avoir que 3 cartes en main.
  */
 public class Militia extends AttackCard {
 
@@ -30,7 +30,7 @@ public class Militia extends AttackCard {
 			if(!PlayerHasMoatInHand(adversaire)){
 				while(adversaire.getHand().size() > 3) {
 					
-					p.getGame().pause(500, adversaire.getName() + " defausse une carte", ".", ".");
+					p.getGame().pause(500, adversaire.getName() + " is discarding a card", ".", ".");
 					adversaire.gain(adversaire.getHand().remove(0));
 				}
 			}

@@ -26,14 +26,14 @@ public class Chancellor extends ActionCard {
 		p.incrementMoney(2);
 		String veutDefaussez;
 		
-		veutDefaussez = p.choose("Voulez vous defaussez tout votre deck ?",new ArrayList<String>(Arrays.asList("y", "n")), false);
+		veutDefaussez = p.choose("Do you want to discard all your deck ?",new ArrayList<String>(Arrays.asList("y", "n")), false);
 		
 		if(veutDefaussez.equalsIgnoreCase("y")){
 			
 			/*
 			 * Animation pour le defaussement du deck.
 			 */
-			p.getGame().pause(1000,"Defaussement du deck", ".", ".", ".");
+			p.getGame().pause(1000,"Discarding all the deck", ".", ".", ".");
 			
 			while(p.getDraw().size() > 0) {
 				p.gain(p.getDraw().remove(0));

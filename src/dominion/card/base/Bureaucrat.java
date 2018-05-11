@@ -24,7 +24,8 @@ public class Bureaucrat extends AttackCard {
 	public void play(Player p) {
 		String carteARetirez = "";
 		Player adversaire;
-		p.getDraw().add(new Silver());
+		
+		p.getDraw().add(p.getGame().removeFromSupply("Silver"));
 		
 		for(int i = 0; i < p.otherPlayers().size(); i++) {
 			adversaire = p.otherPlayers().get(i);
@@ -32,14 +33,14 @@ public class Bureaucrat extends AttackCard {
 			if(!PlayerHasMoatInHand(adversaire)){
 				
 				//Animation
-				p.getGame().pause(1000, ("Recherche de carte Tresor dans la main de " + adversaire.getName()) ,"." , "." , ".");
+				p.getGame().pause(1000, ("Search for treasure card in " + adversaire.getName()) + " hand" ,"." , "." , ".");
 
-				carteARetirez = adversaire.chooseCard("Choose a card victory card to show (ENTER IF YOU DON'T HAVE ANY)", adversaire.getVictoryCards(), true);
+				carteARetirez = adversaire.chooseCard("Choose a victory card to show (ENTER IF YOU DON'T HAVE ANY)", adversaire.getVictoryCards(), true);
 								
 				if(!carteARetirez.equalsIgnoreCase("")){
 					adversaire.getDraw().add(adversaire.getHand().remove(carteARetirez));
-					p.getGame().pause(1000, adversaire.getName() + " n'as pas de carte tresor en main, voila sa main : " + adversaire.getHand());}
-				}else p.getGame().pause(1000, "carte trouve : " + carteARetirez + " on la retire et la place sur le deck...");
+					p.getGame().pause(1000, adversaire.getName() + " don't have any treasure card in hand.", "His hand : " + adversaire.getHand());}
+				}else p.getGame().pause(1000, "Treasure card found : " + carteARetirez + " putting it on his deck...");
 
 				
 			}

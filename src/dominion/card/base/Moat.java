@@ -30,8 +30,8 @@ public class Moat extends ReactionCard {
 	}
 	
 	public boolean devoileCarte(Player p){
-		String answer = p.choose("Veut tu jouer ta carte Moat ?", new ArrayList<String>(Arrays.asList("Oui", "Non")), false);
-		if(answer.equalsIgnoreCase("Oui")) return true;
+		String answer = p.choose("Do you want to play your moat card ?", new ArrayList<String>(Arrays.asList("y", "n")), false);
+		if(answer.equalsIgnoreCase("y")) return true;
 		else return false;
 	}
 }

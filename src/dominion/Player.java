@@ -524,7 +524,7 @@ public class Player {
 					// si une réponse valide est obtenue, elle est renvoyée
 					return input;
 				}else {
-					System.out.println("\n>>> INCORRECT INPUT TRY AGAIN PLEASEd");
+					System.out.println("\n>>> INCORRECT INPUT TRY AGAIN PLEASE");
  				}
 			}
 		}
