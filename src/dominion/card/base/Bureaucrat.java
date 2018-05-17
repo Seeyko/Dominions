@@ -27,23 +27,30 @@ public class Bureaucrat extends AttackCard {
 		
 		p.getDraw().add(p.getGame().removeFromSupply("Silver"));
 		
+		
+		//On parcours la liste de tous les adversaires du player passé en arguments
 		for(int i = 0; i < p.otherPlayers().size(); i++) {
 			adversaire = p.otherPlayers().get(i);
 			
+			//On vérifie si l'adversaire possédé la carte Moat
 			if(!PlayerHasMoatInHand(adversaire)){
 				
 				//Animation
 				p.getGame().pause(1000, ("Search for treasure card in " + adversaire.getName()) + " hand" ,"." , "." , ".");
 
-				carteARetirez = adversaire.chooseCard("Choose a victory card to show (ENTER IF YOU DON'T HAVE ANY)", adversaire.getVictoryCards(), true);
+				
+				carteARetirez = adversaire.chooseCard("Choose a victory card to show ", adversaire.getVictoryCards(), false);
 								
+				//Si l'adversaire a choisi une carte (il n'a pas appuyé sur ENTRER)
 				if(!carteARetirez.equalsIgnoreCase("")){
+					//On retire la carte de sa main et on la rajoute a sa pioche
 					adversaire.getDraw().add(adversaire.getHand().remove(carteARetirez));
-					p.getGame().pause(1000, adversaire.getName() + " don't have any treasure card in hand.", "His hand : " + adversaire.getHand());}
-				}else p.getGame().pause(1000, "Treasure card found : " + carteARetirez + " putting it on his deck...");
+					 p.getGame().pause(1000, "Treasure card found : " + carteARetirez + " putting it on his deck...");
 
+				}else p.getGame().pause(1000, adversaire.getName() + " don't have any treasure card in hand.", "His hand : " + adversaire.getHand());
 				
 			}
 		}
+	}
 	
 }

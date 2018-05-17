@@ -24,6 +24,7 @@ public class Game {
 	 *  Variable d�finissant si on ajoute des pauses ou non pour rendre le jeu plus r�aliste.
 	 */
 	private static boolean isRP = false;
+	
 	/**
 	 * Tableau contenant les joueurs de la partie
 	 */
@@ -32,13 +33,13 @@ public class Game {
 	/**
 	 * Index du joueur dont c'est actuellement le tour
 	 */
+	private int currentPlayerIndex;
+
 	/**
 	 * Scanner permettant de lire les entr�es au clavier
 	 */
-	
 	private Scanner scanner;
 	
-	private int currentPlayerIndex;
 	
 	/**
 	 * Liste des piles dans la réserve du jeu.
@@ -126,9 +127,8 @@ public class Game {
 		this.supplyStacks.add(estateStack);
 		this.supplyStacks.add(duchyStack);
 		this.supplyStacks.add(provinceStack);
-		for(int i = 0; i < kingdomStacks.size(); i++) {
-			this.supplyStacks.add(kingdomStacks.get(i));
-		}
+		this.supplyStacks.addAll(kingdomStacks);
+		
 
 		//Creation des joueurs
 		this.players = new Player[playerNames.length];
@@ -138,7 +138,7 @@ public class Game {
 	}
 	
 	/**
-	 * Constructor avec troisi�me param�tre.
+	 * Constructor avec troisiéme paramétre.
 	 */
 	public Game(String[] playerNames, List<CardList> kingdomStacks, boolean rp) {
 
@@ -208,7 +208,19 @@ public class Game {
 			this.players[i] = new Player(playerNames[i], this);
 		}
 	}
+
+	/**
+	 * Retourne la liste des carte dans la poubelle.
+	 * @return {@code this.trashedCard}
+	 */
+	public CardList getTrash() {
+		return this.trashedCards;
+	}
 	
+	/**
+	 * 
+	 * @return {@code nbOfCard} le nombre de carte total que la partie contient
+	 */
 	private int getNumberOfCard() {
 		int nbOfCard = 0;
 		for(int nbDeck = 0; nbDeck < this.supplyStacks.size(); nbDeck++){
@@ -230,23 +242,53 @@ public class Game {
 		return this.players[index];
 	}
 	
+	/**
+	 * Renvoi la liste des cartes ayant pour cout {@code k}, si il n'en existe aucune 
+	 * cela renvoi un {@code null}
+	 * 
+	 * @param k cout des cartes
+	 * @return liste de cartes ayant pour cout {@code k}, si vide retourne {@code null}
+	 */
 	public CardList getCardsByCost(int k) {
 		CardList cardsByCost = new CardList();
+		Card verifCard;
 		for(int i = 0; i < this.supplyStacks.size(); i++) {
-			if (this.supplyStacks.get(i).get(0).getCost() == k) {
+			
+			//Test au cas ou le stack soit vide
+			try{
+				verifCard = this.supplyStacks.get(i).get(0);
+			}catch(NullPointerException e){
+				verifCard = null;
+			}
+			
+			if(verifCard != null && this.supplyStacks.get(i).get(0).getCost() == k) {
 				cardsByCost.add(this.supplyStacks.get(i).get(0));
 			}
 		}
-		return cardsByCost;
+	return cardsByCost;
 	}
 
+	/**
+	 * si il n'existe aucune carte ayant pour cout k et pour Type types
+	 * retourner un {@code null}
+	 * 
+	 * @param k cout des cartes, types Type de cartes a retourner
+	 * @return liste de cartes ayant pour cout {@code k}, et pour types {@code types} si vide retourne {@code null}
+	 */
 	public CardList getCardsByCostAndTypes(int k, CardType types) {
 		CardList cardsByCost = new CardList();
 		
-		Card cur;
+		Card verifCard;
 		for(int i = 0; i < this.supplyStacks.size(); i++) {
-			cur = this.supplyStacks.get(i).get(0);
-			if (cur.getCost() == k && cur.getTypes().contains(types)) {
+			
+			//Test au cas ou le stack soit vide
+			try{
+				verifCard = this.supplyStacks.get(i).get(0);
+			}catch(NullPointerException e){
+				verifCard = null;
+			}
+				
+			if (verifCard.getCost() == k && verifCard.getTypes().contains(types)) {
 				cardsByCost.add(this.supplyStacks.get(i).get(0));
 			}
 		}
@@ -273,9 +315,6 @@ public class Game {
 		return -1;
 	}
 	
-	public CardList getTrash() {
-		return this.trashedCards;
-	}
 	/**
 	 * Renvoie la liste des adversaires du joueur passé en argument, dans 
 	 * l'ordre dans lequel ils apparaissent à partir du joueur {@code p}.
@@ -357,22 +396,13 @@ public class Game {
 		/**
 		 * Recherche dans la reserve si il y a une CardList qui contient la carte @cardName
 		 */
-
 		for(int i = 0; i < this.supplyStacks.size(); i++){
-			try{
-				cardFound = this.supplyStacks.get(i).getCard(cardName);
-				if((cardFound = this.supplyStacks.get(i).getCard(cardName)) != null){
-					return cardFound;
-				}
-			} catch (Exception e) {
-				System.out.println("Erreur supply" + i );
-			}
-			
+			cardFound = this.supplyStacks.get(i).getCard(cardName);
+			if((cardFound = this.supplyStacks.get(i).getCard(cardName)) != null){
+				return cardFound;
+			}			
 		}
-			
-			
-			
-		return null;
+		return cardFound;
 	}
 	
 	/**
@@ -383,20 +413,11 @@ public class Game {
 	 * ne correspond au nom passé en argument
 	 */
 	public Card removeFromSupply(String cardName) {
-		Card cardFound = this.getFromSupply(cardName);
-		if(cardFound == null){
-			return cardFound;
-		}else {
-			cardFound = null;
-			/**
-			 * Retire la card @cardName si elle existe dans le supplystack
-			 */
-			for(int i = 0; i < this.supplyStacks.size() && cardFound == null; i++){
-				cardFound = this.supplyStacks.get(i).remove(cardName);
-				if(cardFound != null) {
-					return cardFound;
-				}
-			}
+		Card cardFound = null;
+			
+		//Retire la card @cardName si elle existe dans le supplystack
+		for(int i = 0; i < this.supplyStacks.size() && cardFound == null; i++){
+			cardFound = this.supplyStacks.get(i).remove(cardName);
 		}
 		
 		return cardFound;
@@ -421,18 +442,12 @@ public class Game {
 		} 
 		
 		for(int i = 0; i < this.supplyStacks.size(); i++){
-			try{
 				if(this.supplyStacks.get(i).isEmpty()){
 					compteurDeSupplyVide++;
 				}
 				if(compteurDeSupplyVide == 3){
 					return true;
-				}		
-				
-			}catch (Exception e) {
-				System.out.println("Erreur " + i);
-			}
-			
+				}					
 		}
 		return false;
 	}
@@ -476,6 +491,14 @@ public class Game {
 		return this.scanner.nextLine();
 	}
 	
+	/**
+	 * Affiche un message a l'écran et crée un temps de pause
+	 * Le paramètre args permet de passer plusieurs phrases simultanément.
+	 * La méthode traitera args comme une liste de String.
+	 * 
+	 * @param tps_pause temps de pause entre chaque args
+	 * @param args phrase a afficher dans la console
+	 */
 	public void pause(int tps_pause, String... args){
 		
 		if(this.isRP) {

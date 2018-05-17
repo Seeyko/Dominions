@@ -18,4 +18,9 @@ public abstract class TreasureCard extends Card {
 		types.add(CardType.Treasure);
 		return types;
 	}
+	
+	@Override
+	public void play(Player p){
+		p.incrementMoney(this.victoryValue(p));
+	}
 }

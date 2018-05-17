@@ -16,6 +16,5 @@ public class Silver extends TreasureCard {
 
 	@Override
 	public void play(Player p) {
-		p.incrementMoney(2);		
 	}
 }

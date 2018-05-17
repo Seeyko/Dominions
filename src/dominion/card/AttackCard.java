@@ -25,7 +25,6 @@ public abstract class AttackCard extends ActionCard {
 			}
 		}
 		return false;
-			
 	}
 	public List<CardType> getTypes() {
 		List<CardType> types = super.getTypes();

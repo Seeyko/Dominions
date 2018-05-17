@@ -161,10 +161,10 @@ public class Player {
 	 * éléments sont les mêmes que ceux de {@code this.hand}.
 	 */
 	public CardList cardsInHand() {
+		//On crée une nouvelle liste pour ne pas retourner directement this.hand et ne pas la modifier directement
 		CardList inHand = new CardList();
-		for(int cardInHandIndex = 0; cardInHandIndex < this.hand.size(); cardInHandIndex++) {
-			inHand.add(this.hand.get(cardInHandIndex));
-		}
+		//On copie hand dans inHand.
+		inHand.addAll(this.hand);
 		return inHand;
 	}
 	
@@ -175,20 +175,19 @@ public class Player {
 	 */
 	public CardList totalCards() {
 		CardList totalCard = new CardList();
-		for(Card c: this.hand) {
-			totalCard.add(this.hand.getCard(c.getName()));
-		}
-		for(Card c: this.discard) {
-			totalCard.add(this.discard.getCard(c.getName()));
-		}
+		
+		//On ajoute toute les cartes de la main dans totalCard
+		totalCard.addAll(this.hand);
+		
+		//Toute les cartes de la defausse
+		totalCard.addAll(this.discard);
 
-		for(Card c: this.draw) {
-			totalCard.add(this.draw.getCard(c.getName()));
-		}
-
-		for(Card c: this.inPlay) {
-			totalCard.add(this.inPlay.getCard(c.getName()));
-		}
+		//Toutes les cartes de la pioche
+		totalCard.addAll(this.draw);
+	
+		//Toutes les cartes en jeu
+		totalCard.addAll(this.inPlay);
+		
 		totalCard.shuffle();
 		return totalCard;
 	}
@@ -235,22 +234,33 @@ public class Player {
 	 */
 	public Card drawCard() {
 
+		//Si le joueur n'a aucune carte ni dans sa pioche ni dans sa defausse.
 		if(this.draw.isEmpty() && this.discard.isEmpty()) {
 			return null;
 		}
 		
+		//Si la pioche du joueur est vide
 		if(this.draw.isEmpty()) {
 			this.discard.shuffle();
-				this.draw.addAll(this.discard);
-				this.discard.clear();
-			return this.draw.remove(0);
-		}else {
-			return this.draw.remove(0);
+			this.draw.addAll(this.discard);
+			this.discard.clear();
 		}
-	}
 	
+		return this.draw.remove(0);
+		
+	}
+	/**
+	 * Pioche une carte dans la pioche du joueur et l'ajoute a la main du joueur.
+	 * 
+	 * Si la carte piocher est {@code null} on renvoie {@code null}
+	 * Sinon on l'ajoute a la main du joueur
+	 * 
+	 * @return la carte piochée, {@code null} si aucune carte pioché.
+	 */
 	public Card drawCard_AndAddInHand(){
+		//On pioche une carte
 		Card cartePioche = this.drawCard();
+		//Si elle n'est pas nulle on l'ajoute a la main
 		if(cartePioche != null) {
 			this.hand.add(cartePioche);
 		}
@@ -436,12 +446,12 @@ public class Player {
 	 */
 	public Card buyCard(String cardName) {
 		
-		Card cardInDraw = this.getGame().getFromSupply(cardName);
-		if(cardInDraw != null && this.money >= cardInDraw.getCost() && this.buys > 0){
-			this.money = this.money - cardInDraw.getCost();
+		Card cardInSupply = this.getGame().getFromSupply(cardName);
+		if(cardInSupply != null && this.money >= cardInSupply.getCost() && this.buys > 0){
+			this.money = this.money - cardInSupply.getCost();
 			this.buys--;
 			this.gain(this.getGame().removeFromSupply(cardName));
-			return cardInDraw;
+			return cardInSupply;
 		}
 		return null;
 	}
@@ -657,30 +667,13 @@ public class Player {
 		}
 		
 		//Achete une carte tant que le joueur peut
-		cardName = "";
+		cardName = "poupipoupipoupidou";
 
-		//while(this.buys > 0 && this.money > 0){
+		while(this.buys > 0 && this.money > 0 && !cardName.equalsIgnoreCase("")){
 			cardName = this.chooseCard("Choisis une carte a achete (ENTRER pour passer) : ", this.getGame().availableSupplyCards(), true);
 			this.buyCard(cardName);
-			/*
-			 * A rajouter pour plus de rp mais fait echouer les test 
-
-			 if(!cardName.equals("")) {
-			 
-				
-				Card testBuyCard = null;
-				testBuyCard = this.buyCard(cardName);
-				
-				
-				  if(testBuyCard == null) {
-					System.out.println("L'achat a echoue verifiez que vous avez assez d'argent.");
-				}else {
-					System.out.println("Vous avez achete "+ cardName);
-				
-				
-			} else break;		
-			*/
-		//}
+		}
+		
 		this.endTurn();  
 	}
 	

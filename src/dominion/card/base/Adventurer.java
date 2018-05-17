@@ -19,12 +19,16 @@ public class Adventurer extends ActionCard {
 		super(name, cost);
 	}
 
+	
 	@Override
 	public void play(Player p) {
 		CardList carteTresor = new CardList();
 		CardList carteADefaussez = new CardList();
 		Card cartePiocher;
 		
+		
+		//Tant que le joueur n'as pas piocher 2 cartes au tresor ou qu'il lui reste des cartes a piocher
+		 
 		while(carteTresor.size() < 2 && (cartePiocher = p.drawCard()) != null){
 			
 			p.getGame().pause(1000, "Show a card : " + cartePiocher.getName());
@@ -32,15 +36,20 @@ public class Adventurer extends ActionCard {
 			//Test si la carte piocher et de type tresor
 			if(cartePiocher.getTypes().contains(CardType.Treasure)) {
 				
+				//On l'ajoute au tas des cartes tresor
 				carteTresor.add(cartePiocher);
 				p.getGame().pause(500, (carteTresor.size() + " Treasure card found"));
 				
-			}else if(!cartePiocher.getTypes().contains(CardType.Treasure)){
+			}else {
+				//Sinon on l'ajoute aux tas de cartes a defaussez
 				carteADefaussez.add(cartePiocher);
 			}
 			
 		}
+		
+		//Quand la boucle est fini on ajoute a notre main les cartes tresor
 		p.getHand().addAll(carteTresor);
+		//Et on défausse les autres cartes.
 		p.getDiscard().addAll(carteADefaussez);
 	}
 	

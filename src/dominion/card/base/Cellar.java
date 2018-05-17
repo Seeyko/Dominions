@@ -25,10 +25,10 @@ public class Cellar extends ActionCard {
 	@Override
 	public void play(Player p) {
 		p.incrementActions(1);
+		//nom random pour permettre de rentrer dans la boucle
 		String cardName = "poupipoupipoupidou";
 		while(!cardName.equals("")) {
 			cardName = p.chooseCard("Discard a card (ENTER TO FINISH) ", p.cardsInHand(), true);
-			try{
 				if(!cardName.equals("")) {
 					
 					//Animation
@@ -37,9 +37,6 @@ public class Cellar extends ActionCard {
 					p.gain(p.getHand().remove(cardName));
 					p.drawCard_AndAddInHand();
 				}
-			} catch (Exception e) {
-				System.out.println("Error : card = " + cardName);
-			}
 		}
 	}
 }

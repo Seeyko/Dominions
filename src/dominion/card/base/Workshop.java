@@ -26,7 +26,6 @@ public class Workshop extends ActionCard {
 		CardList cartesAChoisir = new CardList();
 		String carteGagner;
 		for (int i = 0 ; i < 4; i++) {
-			
 			curList = p.getGame().getCardsByCost(i);
 			cartesAChoisir.addAll(curList);
 		}

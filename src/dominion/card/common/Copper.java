@@ -16,6 +16,5 @@ public class Copper extends TreasureCard {
 
 	@Override
 	public void play(Player p) {
-		p.incrementMoney(1);
 	}
 }
