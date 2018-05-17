@@ -13,6 +13,8 @@ public abstract class TreasureCard extends Card {
 		// TODO Auto-generated constructor stub
 	}
 	
+	public abstract int treasureValue();
+
 	public List<CardType> getTypes() {
 		List<CardType> types = super.getTypes();
 		types.add(CardType.Treasure);
@@ -21,6 +23,6 @@ public abstract class TreasureCard extends Card {
 	
 	@Override
 	public void play(Player p){
-		p.incrementMoney(this.victoryValue(p));
+		p.incrementMoney(this.treasureValue());
 	}
 }

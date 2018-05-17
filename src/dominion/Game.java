@@ -462,6 +462,7 @@ public class Game {
 	public void run() {
 		while (! this.isFinished()) {
 			// joue le tour du joueur courant
+
 			this.players[this.currentPlayerIndex].playTurn();
 			// passe au joueur suivant
 			this.currentPlayerIndex += 1;

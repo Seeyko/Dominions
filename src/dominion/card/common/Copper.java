@@ -1,6 +1,5 @@
 package dominion.card.common;
-import dominion.*;
-import dominion.card.*;
+import dominion.card.TreasureCard;
 
 /**
  * Carte Cuivre (Copper)
@@ -12,9 +11,5 @@ public class Copper extends TreasureCard {
 	
 	public int treasureValue() {
 		return 1;
-	}
-
-	@Override
-	public void play(Player p) {
 	}
 }

@@ -1,5 +1,4 @@
 package dominion.card.common;
-import dominion.*;
 import dominion.card.*;
 
 /**
@@ -14,7 +13,4 @@ public class Gold extends TreasureCard {
 		return 3;
 	}
 
-	@Override
-	public void play(Player p) {
-	}
 }

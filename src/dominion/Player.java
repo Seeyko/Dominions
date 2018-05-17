@@ -155,6 +155,15 @@ public class Player {
 		this.buys+=n;
 	}
 
+	public Card removeFrom(String cardName, CardList list) {
+		return null;
+		
+	}
+	
+	public Card addTo(String cardName, CardList list) {
+		return null;
+		
+	}
 	/**
 	 * Renvoie une liste des cartes que le joueur a en main.
 	 * La liste renvoyée doit être une nouvelle {@code CardList} dont les 
