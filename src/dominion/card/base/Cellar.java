@@ -27,16 +27,20 @@ public class Cellar extends ActionCard {
 		p.incrementActions(1);
 		//nom random pour permettre de rentrer dans la boucle
 		String cardName = "poupipoupipoupidou";
+		int cpt = 0;
 		while(!cardName.equals("")) {
 			cardName = p.chooseCard("Discard a card (ENTER TO FINISH) ", p.cardsInHand(), true);
 				if(!cardName.equals("")) {
 					
-					//Animation
 					p.getGame().pause(500, "Discarding card", ".", ".", ".");
 					
 					p.gain(p.getHand().remove(cardName));
-					p.drawCard_AndAddInHand();
+					cpt++;
 				}
+		}
+		while(cpt > 0) {
+			p.drawCard_AndAddInHand();
+			cpt--;
 		}
 	}
 }

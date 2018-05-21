@@ -29,17 +29,19 @@ public class Library extends ActionCard {
 			
 			cartePioche = p.drawCard_AndAddInHand();
 
-			if(cartePioche.getTypes().contains(CardType.Action)) {
+			if(cartePioche != null) {
+				if(cartePioche.getTypes().contains(CardType.Action)) {
 				
-				p.getGame().pause(1000, "You have draw an action card : " + cartePioche.getName());
+					p.getGame().pause(1000, "You have draw an action card : " + cartePioche.getName());
 				
-				veutMettreDeCote = p.choose("Do you want to put it in the discard instead of your hand?", new ArrayList<String>(Arrays.asList("y", "n")), false);
+					veutMettreDeCote = p.choose("Do you want to put it in the discard instead of your hand?", new ArrayList<String>(Arrays.asList("y", "n")), false);
 				
-				if(veutMettreDeCote.equalsIgnoreCase("y")) {
+					if(veutMettreDeCote.equalsIgnoreCase("y")) {
 					
-					carteDeCote.add(p.getHand().remove(cartePioche.getName()));
+						carteDeCote.add(p.getHand().remove(cartePioche.getName()));
 					
-					p.getGame().pause(500, cartePioche + " add to the discard");
+						p.getGame().pause(500, cartePioche + " add to the discard");
+					}
 				}
 			}
 		}

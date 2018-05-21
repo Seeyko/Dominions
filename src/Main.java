@@ -72,7 +72,7 @@ class Main {
 		kingdomStacks.add(laboratory);
 
 		 //Instancie et exécute une partie
-		Game g = new Game(playerNames, kingdomStacks);
+		Game g = new Game(playerNames, kingdomStacks, false);
 		g.run();
 	}
 }

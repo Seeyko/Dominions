@@ -25,7 +25,6 @@ public class Chapel extends ActionCard {
 		int nbCarteAJetez = 0;
 		while(!cardName.equalsIgnoreCase("") && nbCarteAJetez < 4 && p.getHand().size() > 0) {
 			cardName = p.chooseCard((4 - nbCarteAJetez) + " card to discard.\n>>>Choose a card to discard (ENTER TO PASS)", p.cardsInHand(), true);
-			try{
 				
 				p.getGame().pause(1000, "Discarding the card");
 				
@@ -34,9 +33,7 @@ public class Chapel extends ActionCard {
 				nbCarteAJetez++;
 
 				p.getGame().pause(1000, "Card " + cardName + " discard");				
-			} catch (Exception e) {
-				System.out.println("Error during the discard " + p.getHand().getCard(cardName));
-			}
+			
 		}
 	}
 }

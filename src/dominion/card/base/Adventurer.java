@@ -31,7 +31,7 @@ public class Adventurer extends ActionCard {
 		 
 		while(carteTresor.size() < 2 && (cartePiocher = p.drawCard()) != null){
 			
-			p.getGame().pause(1000, "Show a card : " + cartePiocher.getName());
+			p.getGame().pause(1000, "Show a draw card : " + cartePiocher.getName());
 			
 			//Test si la carte piocher et de type tresor
 			if(cartePiocher.getTypes().contains(CardType.Treasure)) {
@@ -48,8 +48,10 @@ public class Adventurer extends ActionCard {
 		}
 		
 		//Quand la boucle est fini on ajoute a notre main les cartes tresor
+		p.getGame().pause(1000, "Adding the treasure found to the hand.", ".", ".");
 		p.getHand().addAll(carteTresor);
 		//Et on défausse les autres cartes.
+		p.getGame().pause(1000, "Discarding the other cards.", ".", ".");
 		p.getDiscard().addAll(carteADefaussez);
 	}
 	

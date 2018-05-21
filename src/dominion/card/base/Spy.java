@@ -36,16 +36,18 @@ public class Spy extends AttackCard {
 		for(int i = 0; i < p.getGame().numberOfPlayers(); i++) {
 			adversaire = p.getGame().getPlayer(i);
 			carteRetirer = adversaire.drawCard();
-			if(!PlayerHasMoatInHand(adversaire)){
-				p.getGame().pause(1000, "Player : " + adversaire.getName() + " has the card : " + carteRetirer.getName());
-				def_dev = p.choose("Discard (y) or put this card on the deck (n)?", new ArrayList<String>(Arrays.asList("y", "n")), false);
+			if(carteRetirer != null) {
+				if(!PlayerHasMoatInHand(adversaire)){
+					p.getGame().pause(1000, "Player : " + adversaire.getName() + " has the card : " + carteRetirer.getName());
+					def_dev = p.choose("Discard (y) or put this card on the deck (n)?", new ArrayList<String>(Arrays.asList("y", "n")), false);
 				
-				if(def_dev .equalsIgnoreCase("y")) {
-					p.getGame().pause(500,"Discarding the card");
-					adversaire.gain(carteRetirer);
-				}else if(def_dev.equalsIgnoreCase("n")) {
-					p.getGame().pause(500,"Putting the card on the deck");
-					adversaire.getDraw().add(carteRetirer);
+					if(def_dev .equalsIgnoreCase("y")) {
+						p.getGame().pause(500,"Discarding the card");
+						adversaire.gain(carteRetirer);
+					}else if(def_dev.equalsIgnoreCase("n")) {
+						p.getGame().pause(500,"Putting the card on the deck");
+						adversaire.getDraw().add(carteRetirer);
+					}
 				}
 			}
 		}

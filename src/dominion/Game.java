@@ -1,5 +1,6 @@
 package dominion;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Scanner;
 
@@ -288,7 +289,7 @@ public class Game {
 				verifCard = null;
 			}
 				
-			if (verifCard.getCost() == k && verifCard.getTypes().contains(types)) {
+			if (verifCard != null && verifCard.getCost() == k && verifCard.getTypes().contains(types)) {
 				cardsByCost.add(this.supplyStacks.get(i).get(0));
 			}
 		}
@@ -444,11 +445,13 @@ public class Game {
 		for(int i = 0; i < this.supplyStacks.size(); i++){
 				if(this.supplyStacks.get(i).isEmpty()){
 					compteurDeSupplyVide++;
-				}
+				}	
+
 				if(compteurDeSupplyVide == 3){
 					return true;
-				}					
+				}			
 		}
+
 		return false;
 	}
 	
@@ -516,6 +519,7 @@ public class Game {
 			}
 		}
 	}
+
 
 
 	

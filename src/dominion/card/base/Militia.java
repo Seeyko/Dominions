@@ -32,6 +32,7 @@ public class Militia extends AttackCard {
 					
 					p.getGame().pause(500, adversaire.getName() + " is discarding a card", ".", ".");
 					adversaire.gain(adversaire.getHand().remove(0));
+					
 				}
 			}
 		}

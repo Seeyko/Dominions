@@ -23,9 +23,13 @@ public class ThroneRoom extends ActionCard {
 	@Override
 	public void play(Player p) {
 		String cardName = p.chooseCard("Choose an action card to play : (ENTER TO PASS)", p.getActionCards(), true);		
-		p.playCard(cardName);
-		//On recupere la carte joué.
-		p.getHand().add(p.getInPlay().remove(cardName));
-		p.playCard(cardName);
+		
+		if(!cardName.equals("")) {
+			p.playCard(cardName);
+		
+			//On recupere la carte joué.
+			p.getHand().add(p.getInPlay().remove(cardName));
+			p.playCard(cardName);
+		}
 	}
 }

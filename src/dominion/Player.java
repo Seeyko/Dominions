@@ -155,15 +155,7 @@ public class Player {
 		this.buys+=n;
 	}
 
-	public Card removeFrom(String cardName, CardList list) {
-		return null;
-		
-	}
-	
-	public Card addTo(String cardName, CardList list) {
-		return null;
-		
-	}
+
 	/**
 	 * Renvoie une liste des cartes que le joueur a en main.
 	 * La liste renvoyée doit être une nouvelle {@code CardList} dont les 
@@ -171,9 +163,7 @@ public class Player {
 	 */
 	public CardList cardsInHand() {
 		//On crée une nouvelle liste pour ne pas retourner directement this.hand et ne pas la modifier directement
-		CardList inHand = new CardList();
-		//On copie hand dans inHand.
-		inHand.addAll(this.hand);
+		CardList inHand = new CardList(this.hand);
 		return inHand;
 	}
 	
@@ -432,9 +422,9 @@ public class Player {
 	 * null} si aucune carte n'a été prise dans la réserve.
 	 */
 	public Card gain(String cardName) {
-			Card cardFound = this.getGame().getFromSupply(cardName);
+			Card cardFound = this.getGame().removeFromSupply(cardName);
 			if(cardFound != null){
-				this.gain(this.getGame().removeFromSupply(cardName));
+				this.gain(cardFound);
 			} 
 			return cardFound;
 	}
@@ -455,11 +445,11 @@ public class Player {
 	 */
 	public Card buyCard(String cardName) {
 		
-		Card cardInSupply = this.getGame().getFromSupply(cardName);
+		Card cardInSupply = this.getGame().removeFromSupply(cardName);
 		if(cardInSupply != null && this.money >= cardInSupply.getCost() && this.buys > 0){
 			this.money = this.money - cardInSupply.getCost();
 			this.buys--;
-			this.gain(this.getGame().removeFromSupply(cardName));
+			this.gain(cardInSupply);
 			return cardInSupply;
 		}
 		return null;
